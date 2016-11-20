@@ -1,0 +1,45 @@
+[alias]
+    d  = diff
+    # stageしてあるファイルのdiffを表示する(=これからコミットされるファイル)
+    dc = diff --cached
+	dw = diff --color-words
+	staged = diff --staged
+    co = checkout
+    ci = commit
+    cmm = commit -m
+    br = branch
+    p = add -p
+    st = status
+    # ログをグラフ表示されるように
+    l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+    tree = log --oneline --decorate --graph
+	last = log -1 HEAD
+	whatsnew = log HEAD@{1}..HEAD --reverse
+	whatsnewly = log HEAD@{1}..HEAD -p --reverse
+    fulllog = log --decorate=full
+	ranking = shortlog -s -n --no-merges
+    # mergeコミットコメントはデフォルトのままで($EDITORを開かない)
+    merge = merge --no-edit
+    # mergeコミットはそのままでrebaseする
+    rb = rebase --preserve-merge
+    unstage = reset HEAD --
+    uncommit = reset --soft HEAD^
+    # rebaseでpullする、ついでに不要なリモートブランチを削除する
+    up = pull --rebase --prune
+    # master以外のマージ済みブランチを削除する
+    bclean = "!f() { git branch --merged master | grep -v " master$" | xargs -I % git branch -d %;}; f"
+    # git start <branch-name> <work-summary> masterを最新にした上で新規作業ブランチ作って空コミットする
+    start = "!f() { [ -z \"${1+x}\" ] && { echo 'Please specify branch name.'; exit 1;}; [ -z \"${2+x}\" ] && { echo 'Please specify your work summary.'; exit 1;}; git checkout master && git up && git checkout -b $1 && git commit --allow-empty -m \"${2} 作業開始\" && git push -u origin $1; }; f"
+    # masterに移動して、最新に更新 + 不要ブランチを削除
+    done = "!f() { git checkout master && git up && git bclean; }; f"
+    # これを叩くと`git co pr/{pullreq-number}`でPRをチェックアウトできるようになる
+    pr-setup = config --add remote.origin.fetch +refs/pull/*/head:refs/remotes/origin/pr/*
+
+	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+    cmm = commit -m
+[color]
+    ui = true
+[ghq]
+    root = ~/local/src
+
