@@ -176,8 +176,8 @@ nnoremap [Prefix]vv  :<C-u>e $MYVIMRC<Return>
 nnoremap <silent> [Prefix]ub :<C-u>Unite buffer<CR>
 nnoremap <silent> [Prefix]us :<C-u>Unite snippet<CR>
 nnoremap <silent> [Prefix]uy :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [Prefix]uR :<C-u>vsplit<CR><C-w><C-w>:<C-u>Unite file_mru<CR>
-nnoremap <silent> [Prefix]ur :<C-u>Unite file_mru -default-action=tabopen<CR>
+nnoremap <silent> [Prefix]uR :<C-u>vsplit<CR><C-w><C-w>:<C-u>Unite neomru/file<CR>
+nnoremap <silent> [Prefix]ur :<C-u>Unite neomru/file -default-action=tabopen<CR>
 nnoremap <silent> [Prefix]uH :<C-u>Unite qfixhowm<CR>
 nnoremap <silent> [Prefix]uh :<C-u>Unite qfixhowm -default-action=tabopen<CR>
 nnoremap <silent> [Prefix]ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
