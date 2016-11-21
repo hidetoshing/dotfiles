@@ -13,6 +13,10 @@ repo = 'Shougo/unite.vim'
 repo = 'Shougo/unite-outline'
 
 [[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
