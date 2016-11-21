@@ -28,6 +28,8 @@ zplug "b4b4r07/enhancd", use:init.sh
 # syntax hilight. nice:10 needed to load after compinit
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
+zplug "mollifier/cd-gitroot"
+
 # Can manage local plugins
 # zplug "~/.zsh", from:local
 
