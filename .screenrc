@@ -1,0 +1,16 @@
+attrcolor b ".I"
+defbce on
+termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+#defencoding utf-8
+defscrollback 10000
+startup_message off
+autodetach on
+vbell off
+
+hardstatus alwayslastline '%{=b .w} :: %{= .y}%0` %{=b .w}>> %L=%{=b .w}%-w%46>%{=b .r}%n %t*%{=b .w}%+w%-20= << %{= .y}[%l]'
+
+backtick 0 0 10 echo $HOSTNAME
+zombie kr #  k: destory window, r: resurrect window
+nethack on
+shell /bin/zsh
