@@ -22,13 +22,15 @@ zplug "jhawthorn/fzy", \
         sudo make install
     }"
 
-## enhanced
+## directory moving
 zplug "b4b4r07/enhancd", use:init.sh
+zplug "mollifier/cd-gitroot"
 
 # syntax hilight. nice:10 needed to load after compinit
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
-zplug "mollifier/cd-gitroot"
+zplug "zsh-users/zsh-autosuggestions"
+
 
 # Can manage local plugins
 # zplug "~/.zsh", from:local
