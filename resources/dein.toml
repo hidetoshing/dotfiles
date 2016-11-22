@@ -47,6 +47,9 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
 [[plugins]] # カラースキーマ
 repo = 'w0ng/vim-hybrid'
 hook_add = '''
