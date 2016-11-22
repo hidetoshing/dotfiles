@@ -180,14 +180,11 @@ nnoremap <silent> [Prefix]uR :<C-u>vsplit<CR><C-w><C-w>:<C-u>Unite neomru/file<C
 nnoremap <silent> [Prefix]ur :<C-u>Unite neomru/file -default-action=tabopen<CR>
 nnoremap <silent> [Prefix]uH :<C-u>Unite qfixhowm<CR>
 nnoremap <silent> [Prefix]uh :<C-u>Unite qfixhowm -default-action=tabopen<CR>
-nnoremap <silent> [Prefix]ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent> [Prefix]uo :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]uG :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> [Prefix]ug :<C-u>UniteResume search-buffer<CR>
 nnoremap <silent> [Prefix]ut :<C-u>Unite tab<CR>
-nnoremap <silent> [Prefix]f :<C-u>Unite outline<CR>
-nnoremap <silent> [Prefix]uf :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit<CR>
-nnoremap <silent> [Prefix]uF :<C-u>VimFilerBufferDir -default-action=tabopen<CR>
+nnoremap <silent> [Prefix]fn :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]r :<C-u>edit .<CR>
 nnoremap <silent> [Prefix]R :<C-u>tabnew<CR>:<C-u>edit .<CR>
 
