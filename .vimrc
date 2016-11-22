@@ -119,10 +119,16 @@ inoremap <silent> <Esc> <Esc>
 inoremap <silent> <C-[> <Esc>
 
 " allow key
-inoremap OA <up>
-inoremap OB <down>
-inoremap OC <right>
-inoremap OD <left>
+"inoremap OA <up>
+"inoremap OB <down>
+"inoremap OC <right>
+"inoremap OD <left>
+
+" command key
+inoremap <D-s> :w<CR>
+inoremap <D-c> y
+inoremap <D-v> p
+inoremap <D-x> x
 
 " increment
 nnoremap ++ <C-a>
