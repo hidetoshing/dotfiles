@@ -29,6 +29,24 @@ hook_add = '''
     let g:lightline = {'colorscheme': 'wombat'}
 '''
 
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'kana/vim-operator-replace'
+hook_add = '''
+    vnoremap R <Plug>(operator-replace)
+'''
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
 [[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
