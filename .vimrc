@@ -72,7 +72,7 @@ set textwidth=0
 set tags=~/.tags
 
 " incremant option.
-set nf=alpha,hex
+set nf=hex
 
 " for double byte string
 set ambiwidth=double
@@ -193,6 +193,7 @@ nnoremap <silent> [Prefix]ut :<C-u>Unite tab<CR>
 nnoremap <silent> [Prefix]fn :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]r :<C-u>edit .<CR>
 nnoremap <silent> [Prefix]R :<C-u>tabnew<CR>:<C-u>edit .<CR>
+nnoremap <silent> [Prefix]t :<C-u>NERDTreeTabsToggle<CR>
 
 " Open Scratch
 nnoremap <silent> [Prefix]sc :<C-u>tabnew<CR>:<C-u>e ~/.scratch.howm<CR>
@@ -262,21 +263,21 @@ command! -nargs=0 Here :cd %:h
 set t_Co=256
 
 """ ----- gui settings
-if has('gui_running')
-    set guioptions-=T " hide toolbar
-    set guioptions-=e " gui環境で tablineを使う
-    set antialias
-    set visualbell t_vb= " no beep
-
-    set guifont=Hack:h12
-    set guifontwide=01フロップデザイン:h10
-
-    " special chars (GUI only)
-    set lcs=tab:>.,trail:_,extends:\
-    set nolist
-
-    " reset IME (Insert mode)
-    au BufNewFile,BufRead * set iminsert=0
-endif
+"if has('gui_running')
+"    set guioptions-=T " hide toolbar
+"    set guioptions-=e " gui環境で tablineを使う
+"    set antialias
+"    set visualbell t_vb= " no beep
+"
+"    set guifont=Hack:h12
+"    "set guifontwide=01フロップデザイン:h10
+"
+"    " special chars (GUI only)
+"    set lcs=tab:>.,trail:_,extends:\
+"    set nolist
+"
+"    " reset IME (Insert mode)
+"    au BufNewFile,BufRead * set iminsert=0
+"endif
 
 """ EOF

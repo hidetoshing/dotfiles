@@ -36,7 +36,17 @@ zplug "zsh-users/zsh-autosuggestions"
 # zplug "~/.zsh", from:local
 
 # additional path
-path=($HOME/bin(N-/) /usr/local/bin(N-/) $path)
+path=(
+    /usr/local/opt/coreutils/libexec/gnubin(N-/)
+    $HOME/bin(N-/)
+    /usr/local/bin(N-/)
+    $path
+)
+
+manpath=(
+    /usr/local/opt/coreutils/libexec/gnuman(N-/)
+    $manpath
+)
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -54,3 +64,4 @@ alias ls="ls -GF"
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
+

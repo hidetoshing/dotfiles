@@ -11,6 +11,7 @@ repo = 'Shougo/unite.vim'
 
 [[plugins]]
 repo = 'Shougo/unite-outline'
+depends = ['unite.vim']
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -46,6 +47,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
+depends = ['vim-operator-user']
 
 [[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
 repo = 'osyo-manga/vim-precious'
@@ -61,10 +63,6 @@ hook_add = '''
 [[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
 repo = 'Shougo/context_filetype.vim'
 
-[[plugins]] # toml syntax
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
-
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
@@ -75,4 +73,17 @@ hook_add = '''
     " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
     " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
     au LocalAutoCmd VimEnter * nested colorscheme hybrid
+'''
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+    let g:NERDTreeShowBookmarks = 1
+'''
+
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
+depends = ['nerdtree']
+hook_add = '''
+    let g:nerdtree_tabs_open_on_console_startup = 1
 '''
