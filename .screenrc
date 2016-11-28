@@ -14,3 +14,5 @@ backtick 0 0 10 echo $HOSTNAME
 zombie kr #  k: destory window, r: resurrect window
 nethack on
 shell /bin/zsh
+
+term xterm-256color
