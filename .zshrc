@@ -30,15 +30,17 @@ zplug "mollifier/cd-gitroot"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
 zplug "zsh-users/zsh-autosuggestions"
-
-
+zplug "b4b4r07/emoji-cli"
+EMOJI_CLI_FILTER=fzy:fzf:peco
+EMOJI_CLI_KEYBIND=^e
 # Can manage local plugins
 # zplug "~/.zsh", from:local
 
 # additional path
 path=(
-    /usr/local/opt/coreutils/libexec/gnubin(N-/)
     $HOME/bin(N-/)
+    $HOME/local/bin(N-/)
+    /usr/local/opt/coreutils/libexec/gnubin(N-/)
     /usr/local/bin(N-/)
     $path
 )
@@ -60,7 +62,7 @@ fi
 zplug load --verbose
 
 # alias
-alias ls="ls -GF"
+alias ls="ls --color"
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
