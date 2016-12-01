@@ -193,7 +193,8 @@ nnoremap <silent> [Prefix]ut :<C-u>Unite tab<CR>
 nnoremap <silent> [Prefix]fn :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]r :<C-u>edit .<CR>
 nnoremap <silent> [Prefix]R :<C-u>tabnew<CR>:<C-u>edit .<CR>
-nnoremap <silent> [Prefix]t :<C-u>NERDTreeTabsToggle<CR>
+nnoremap <silent> [Prefix]ff :<C-u>NERDTreeTabsFind<CR>
+nnoremap <silent> [Prefix]ft :<C-u>NERDTreeTabsToggle<CR>
 
 " Open Scratch
 nnoremap <silent> [Prefix]sc :<C-u>tabnew<CR>:<C-u>e ~/.scratch.howm<CR>
@@ -213,15 +214,15 @@ nnoremap <silent> [Prefix]tc :<C-u>tabnew<CR>
 nnoremap <silent> [Prefix]tp :<C-u>tabprevious<CR>
 nnoremap <silent> [Prefix]tn :<C-u>tabnext<CR>
 nnoremap <silent> [Prefix]tl :<C-u>Unite tab<CR>
-nnoremap <silent> [Prefix]w1 :<C-u>tabnext 1<CR>
-nnoremap <silent> [Prefix]w2 :<C-u>tabnext 2<CR>
-nnoremap <silent> [Prefix]w3 :<C-u>tabnext 3<CR>
-nnoremap <silent> [Prefix]w4 :<C-u>tabnext 4<CR>
-nnoremap <silent> [Prefix]w5 :<C-u>tabnext 5<CR>
-nnoremap <silent> [Prefix]w6 :<C-u>tabnext 6<CR>
-nnoremap <silent> [Prefix]w7 :<C-u>tabnext 7<CR>
-nnoremap <silent> [Prefix]w8 :<C-u>tabnext 8<CR>
-nnoremap <silent> [Prefix]w9 :<C-u>tabnext 9<CR>
+nnoremap <silent> [Prefix]t1 :<C-u>tabnext 1<CR>
+nnoremap <silent> [Prefix]t2 :<C-u>tabnext 2<CR>
+nnoremap <silent> [Prefix]t3 :<C-u>tabnext 3<CR>
+nnoremap <silent> [Prefix]t4 :<C-u>tabnext 4<CR>
+nnoremap <silent> [Prefix]t5 :<C-u>tabnext 5<CR>
+nnoremap <silent> [Prefix]t6 :<C-u>tabnext 6<CR>
+nnoremap <silent> [Prefix]t7 :<C-u>tabnext 7<CR>
+nnoremap <silent> [Prefix]t8 :<C-u>tabnext 8<CR>
+nnoremap <silent> [Prefix]t9 :<C-u>tabnext 9<CR>
 nnoremap <silent> <C-t>1 :<C-u>tabnext 1<CR>
 nnoremap <silent> <C-t>2 :<C-u>tabnext 2<CR>
 nnoremap <silent> <C-t>3 :<C-u>tabnext 3<CR>
