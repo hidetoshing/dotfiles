@@ -27,10 +27,11 @@ zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/cd-gitroot"
 
 # syntax hilight. nice:10 needed to load after compinit
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
-zplug "b4b4r07/emoji-cli"
+zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
+zplug "b4b4r07/emoji-cli", on:"stedolan/jq"
 
 zplug "hidetoshing/zsh-git-commands"
 zplug "hidetoshing/zsh-easy-history"
@@ -50,10 +51,10 @@ fi
 zplug load --verbose
 
 # plugin settings
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-EMOJI_CLI_FILTER='fzy:fzf:peco'
-EMOJI_CLI_KEYBIND='^e'
-ENHANCD_DOT_ARG='up'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+export EMOJI_CLI_FILTER='fzy:fzf:peco'
+export EMOJI_CLI_KEYBIND='^e'
+export ENHANCD_DOT_ARG='up'
 
 # additional path
 path=(
@@ -69,7 +70,8 @@ manpath=(
     $manpath
 )
 
-# alias
+# Add color to ls command
+#export CLICOLOR=1
 alias ls="ls --color"
 alias ll="ls -l"
 alias la="ls -a"
