@@ -30,13 +30,11 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'itchyny/lightline.vim'
 hook_add = '''
     set laststatus=2
-    let g:lightline = {'colorscheme': 'wombat'}
 '''
 
 [[plugins]]
 repo = 'hidetoshing/vim-tabcommand'
 hook_add = '''
-    """ always show tabline
     set showtabline=2
 '''
 
