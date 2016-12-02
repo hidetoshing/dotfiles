@@ -18,6 +18,9 @@ repo = 'Shougo/neomru.vim'
 on_path = '.*'
 
 [[plugins]]
+repo = 'ConradIrwin/vim-bracketed-paste'
+
+[[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
@@ -28,6 +31,13 @@ repo = 'itchyny/lightline.vim'
 hook_add = '''
     set laststatus=2
     let g:lightline = {'colorscheme': 'wombat'}
+'''
+
+[[plugins]]
+repo = 'hidetoshing/vim-tabcommand'
+hook_add = '''
+    """ always show tabline
+    set showtabline=2
 '''
 
 [[plugins]]
@@ -47,18 +57,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
-depends = ['vim-operator-user']
-
-[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-hook_add = '''
-	" Insertモード時のみ判定
-	let g:precious_enable_switch_CursorMoved = { '*': 0, 'help': 1 }
-	" INSERTモードのON／OFFに合わせてトグル
-	au LocalAutoCmd InsertEnter * :PreciousSwitch
-	au LocalAutoCmd InsertLeave * :PreciousReset
-'''
 
 [[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
 repo = 'Shougo/context_filetype.vim'
@@ -88,3 +86,4 @@ depends = ['nerdtree']
 hook_add = '''
     let g:nerdtree_tabs_open_on_console_startup = 1
 '''
+

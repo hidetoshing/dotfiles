@@ -106,10 +106,6 @@ if has('persistent_undo')
     set undofile
 endif
 
-""" ----- status line setting
-set showtabline=2
-set laststatus=2
-
 """ ----- misc
 "Prefix-key
 nnoremap [Prefix] <nop>
@@ -197,46 +193,13 @@ nnoremap <silent> [Prefix]ff :<C-u>NERDTreeTabsFind<CR>
 nnoremap <silent> [Prefix]ft :<C-u>NERDTreeTabsToggle<CR>
 
 " Open Scratch
-nnoremap <silent> [Prefix]sc :<C-u>tabnew<CR>:<C-u>e ~/.scratch.howm<CR>
 command! -nargs=0 ScratchOpen :tabnew<CR>e ~/.scratch.howm
 
 " temp extention file
-if version >= 703
-    command! -nargs=1 -complete=filetype Temp edit ~/.scratch.<args>
-endif
+command! -nargs=1 -complete=filetype Temp edit ~/.scratch.<args>
 
-command! -nargs=0 Recent :Unite file_mru -default-action=tabopen
+command! -nargs=0 Recent :Unite neomru/file -default-action=tabopen
 command! -nargs=0 Bookmark :Unite bookmark -default-action=tabopen
-command! -nargs=0 Hown :Unite qfixhowm -default-action=tabopen
-
-" tab move
-nnoremap <silent> [Prefix]tc :<C-u>tabnew<CR>
-nnoremap <silent> [Prefix]tp :<C-u>tabprevious<CR>
-nnoremap <silent> [Prefix]tn :<C-u>tabnext<CR>
-nnoremap <silent> [Prefix]tl :<C-u>Unite tab<CR>
-nnoremap <silent> [Prefix]t1 :<C-u>tabnext 1<CR>
-nnoremap <silent> [Prefix]t2 :<C-u>tabnext 2<CR>
-nnoremap <silent> [Prefix]t3 :<C-u>tabnext 3<CR>
-nnoremap <silent> [Prefix]t4 :<C-u>tabnext 4<CR>
-nnoremap <silent> [Prefix]t5 :<C-u>tabnext 5<CR>
-nnoremap <silent> [Prefix]t6 :<C-u>tabnext 6<CR>
-nnoremap <silent> [Prefix]t7 :<C-u>tabnext 7<CR>
-nnoremap <silent> [Prefix]t8 :<C-u>tabnext 8<CR>
-nnoremap <silent> [Prefix]t9 :<C-u>tabnext 9<CR>
-nnoremap <silent> <C-t>1 :<C-u>tabnext 1<CR>
-nnoremap <silent> <C-t>2 :<C-u>tabnext 2<CR>
-nnoremap <silent> <C-t>3 :<C-u>tabnext 3<CR>
-nnoremap <silent> <C-t>4 :<C-u>tabnext 4<CR>
-nnoremap <silent> <C-t>5 :<C-u>tabnext 5<CR>
-nnoremap <silent> <C-t>6 :<C-u>tabnext 6<CR>
-nnoremap <silent> <C-t>7 :<C-u>tabnext 7<CR>
-nnoremap <silent> <C-t>8 :<C-u>tabnext 8<CR>
-nnoremap <silent> <C-t>9 :<C-u>tabnext 9<CR>
-
-nnoremap <silent> <C-t>, :<C-u>tabprevious<CR>
-nnoremap <silent> <C-t>. :<C-u>tabnext<CR>
-
-""" ----- user function
 
 " toggle line number
 if version >= 703

@@ -32,6 +32,9 @@ zplug "zsh-users/zsh-autosuggestions"
 
 zplug "b4b4r07/emoji-cli"
 
+zplug "hidetoshing/zsh-git-commands"
+zplug "hidetoshing/zsh-easy-history"
+
 # Can manage local plugins
 # zplug "~/.zsh", from:local
 
