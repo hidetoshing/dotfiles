@@ -59,6 +59,18 @@ repo = 'tpope/vim-surround'
 [[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
 repo = 'Shougo/context_filetype.vim'
 
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+on_i = 1
+hook_add = '''
+	" Insertモード時のみ判定
+	let g:precious_enable_switch_CursorMoved = { '*': 0, 'help': 1 }
+	" INSERTモードのON／OFFに合わせてトグル
+	au LocalAutoCmd InsertEnter * :PreciousSwitch
+	au LocalAutoCmd InsertLeave * :PreciousReset
+'''
+
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
