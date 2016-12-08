@@ -10,7 +10,5 @@ link:
 	@$(foreach val, $(DOTFILES_FILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 install:
-	mkdir -p $(HOME)/local/src/github.com
-	mkdir -p $(HOME)/local/bin
-	@$(foreach val, $(wildcard ./init/*.sh), bash $(val);)
+	@$(foreach val, $(wildcard ./installer/*.sh), bash $(val);)
 

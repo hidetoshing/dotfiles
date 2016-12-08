@@ -13,9 +13,7 @@ zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "sindresorhus/pure"
 
 ## fzy
-zplug "jhawthorn/fzy", \
-    as:command, \
-    rename-to:fzy, \
+zplug "jhawthorn/fzy", as:command, rename-to:fzy, \
     hook-build:"
     {
         make

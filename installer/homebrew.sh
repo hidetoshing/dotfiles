@@ -8,3 +8,7 @@ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
 brew doctor
 brew update
+
+# quick look plugins
+brew cask install qlstephen qlmarkdown quicklook-json quicklook-csv betterzipql
+
