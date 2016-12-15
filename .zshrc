@@ -3,7 +3,7 @@ source ~/.zplug/init.zsh
 ##### plugins
 
 # Let zplug manage itself
-zplug "zplug/zplug"
+#zplug "zplug/zplug"
 
 ## completions
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
@@ -26,7 +26,7 @@ zplug "mollifier/cd-gitroot"
 
 # syntax hilight. nice:10 needed to load after compinit
 zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
 
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
 zplug "b4b4r07/emoji-cli", on:"stedolan/jq"
