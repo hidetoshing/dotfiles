@@ -44,7 +44,8 @@ filetype plugin indent on
 syntax on
 
 """""
-set number
+set t_Co=256
+
 set wildmenu
 set showcmd
 set shiftwidth=4
@@ -57,25 +58,17 @@ set nobackup
 set autoread
 set noswapfile
 set nowrap
-if $LANG == 'ja_JP.eucJP'
-    set enc=euc-jp
-    set fenc=euc-jp
-else
-    set enc=utf-8
-    set fenc=utf-8
-endif
-set fencs=ucs-bom,utf-8,euc-jp,iso-2022-jp,sjis,cp932,cp20932
 set backspace=indent,eol,start
-set incsearch
-set cursorline
 set textwidth=0
 set tags=~/.tags
 
 " incremant option.
 set nf=hex
 
-" for double byte string
-set ambiwidth=double
+" increment
+nnoremap ++ <C-a>
+nnoremap -- <C-x>
+
 
 " set IME Off
 set iminsert=0
@@ -95,11 +88,6 @@ augroup coding
     autocmd FileType smarty set ft=smarty.html
 augroup END
 
-augroup numberwidth
-    autocmd!
-    autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 2
-augroup END
-
 " undo setting
 if has('persistent_undo')
     set undodir=~/.vim/undo
@@ -107,31 +95,13 @@ if has('persistent_undo')
 endif
 
 """ ----- misc
-"Prefix-key
-nnoremap [Prefix] <nop>
-nmap , [Prefix]
-
+" escape
 inoremap <silent> <Esc> <Esc>
 inoremap <silent> <C-[> <Esc>
 
-" allow key
-"inoremap OA <up>
-"inoremap OB <down>
-"inoremap OC <right>
-"inoremap OD <left>
-
-" command key
-inoremap <D-s> :w<CR>
-inoremap <D-c> y
-inoremap <D-v> p
-inoremap <D-x> x
-
-" increment
-nnoremap ++ <C-a>
-nnoremap -- <C-x>
-
-" clear hilight
-nmap <Esc><Esc> :nohlsearch<CR><Esc>
+"Prefix-key
+nnoremap [Prefix] <nop>
+nmap , [Prefix]
 
 " shift + move selection
 imap <S-down> <ESC>v
@@ -148,21 +118,6 @@ vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
 vnoremap ( "zdi(<C-R>z)<ESC>
 vnoremap ' "zdi'<C-R>z'<ESC>
-
-" centering find position.
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-nmap g# g#zz
-nmap G Gzz
-
-" search option
-noremap <expr> <C-b> max([winheight(0) - 2, 1]) . "\<C-u>" . (line('.') < 1         + winheight(0) ? 'H' : 'L')
-noremap <expr> <C-f> max([winheight(0) - 2, 1]) . "\<C-d>" . (line('.') > line('$') - winheight(0) ? 'L' : 'H')
-noremap <expr> <C-y> (line('w0') <= 1         ? 'k' : "\<C-y>")
-noremap <expr> <C-e> (line('w$') >= line('$') ? 'j' : "\<C-e>")
 
 " yank to line end
 nmap Y y$<ESC>
@@ -182,15 +137,10 @@ nnoremap <silent> [Prefix]uR :<C-u>vsplit<CR><C-w><C-w>:<C-u>Unite neomru/file<C
 nnoremap <silent> [Prefix]ur :<C-u>Unite neomru/file -default-action=tabopen<CR>
 nnoremap <silent> [Prefix]uH :<C-u>Unite qfixhowm<CR>
 nnoremap <silent> [Prefix]uh :<C-u>Unite qfixhowm -default-action=tabopen<CR>
-nnoremap <silent> [Prefix]uo :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]uG :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> [Prefix]ug :<C-u>UniteResume search-buffer<CR>
 nnoremap <silent> [Prefix]ut :<C-u>Unite tab<CR>
 nnoremap <silent> [Prefix]fn :<C-u>Unite outline<CR>
-nnoremap <silent> [Prefix]r :<C-u>edit .<CR>
-nnoremap <silent> [Prefix]R :<C-u>tabnew<CR>:<C-u>edit .<CR>
-nnoremap <silent> [Prefix]ff :<C-u>NERDTreeTabsFind<CR>
-nnoremap <silent> [Prefix]ft :<C-u>NERDTreeTabsToggle<CR>
 
 " Open Scratch
 command! -nargs=0 ScratchOpen :tabnew<CR>e ~/.scratch.howm
@@ -201,47 +151,5 @@ command! -nargs=1 -complete=filetype Temp edit ~/.scratch.<args>
 command! -nargs=0 Recent :Unite neomru/file -default-action=tabopen
 command! -nargs=0 Bookmark :Unite bookmark -default-action=tabopen
 
-" toggle line number
-if version >= 703
-    nnoremap  <sient> ,ln :<C-u>ToggleNumber<CR>
-    command! -nargs=0 ToggleNumber call ToggleNumberOption()
-
-    function! ToggleNumberOption()
-        if &number
-            set relativenumber
-        else
-            set number
-        endif
-    endfunction
-endif
-
-""" reopen specified encoding
-command! -nargs=1 Encode :e ++enc=<args>
-
-""" tips
-" http://nanasi.jp/articles/howto/file/expand.html
-
-""" change current dir
-command! -nargs=0 Here :cd %:h
-
-set t_Co=256
-
-""" ----- gui settings
-"if has('gui_running')
-"    set guioptions-=T " hide toolbar
-"    set guioptions-=e " gui環境で tablineを使う
-"    set antialias
-"    set visualbell t_vb= " no beep
-"
-"    set guifont=Hack:h12
-"    "set guifontwide=01フロップデザイン:h10
-"
-"    " special chars (GUI only)
-"    set lcs=tab:>.,trail:_,extends:\
-"    set nolist
-"
-"    " reset IME (Insert mode)
-"    au BufNewFile,BufRead * set iminsert=0
-"endif
 
 """ EOF

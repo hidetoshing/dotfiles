@@ -33,12 +33,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'hidetoshing/vim-tabcommand'
-hook_add = '''
-    set showtabline=2
-'''
-
-[[plugins]]
 repo = 'kana/vim-textobj-user'
 
 [[plugins]]
@@ -95,5 +89,30 @@ repo = 'jistr/vim-nerdtree-tabs'
 depends = ['nerdtree']
 hook_add = '''
     let g:nerdtree_tabs_open_on_console_startup = 1
+
+    nnoremap [Filer] <Nop>
+
+    nmap [Prefix]f [Filer]
+
+    nnoremap <silent> [Filer]f :<C-u>NERDTreeTabsFind<CR>
+    nnoremap <silent> [Filer]t :<C-u>NERDTreeTabsToggle<CR>
+'''
+
+[[plugins]]
+repo = 'hidetoshing/tabcommand'
+hook_add = '''
+    nmap [Prefix]t [Tab]
+'''
+
+[[plugins]]
+repo = 'hidetoshing/setEncoding'
+
+[[plugins]]
+repo = 'hidetoshing/setSearch'
+
+[[plugins]]
+repo = 'hidetoshing/setLinenumber'
+hook_add = '''
+    nmap [Prefix]l [Line]
 '''
 
