@@ -3,7 +3,7 @@ source ~/.zplug/init.zsh
 ##### plugins
 
 # Let zplug manage itself
-#zplug "zplug/zplug"
+zplug "zplug/zplug"
 
 ## completions
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
@@ -47,6 +47,9 @@ fi
 
 # Then, source plugins and add commands to /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 zplug load --verbose
+
+# rbenv settings
+eval "$(rbenv init -)"
 
 # plugin settings
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
