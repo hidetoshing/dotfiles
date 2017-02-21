@@ -12,3 +12,6 @@ link:
 install:
 	@$(foreach val, $(wildcard ./installer/*.sh), bash $(val);)
 
+homebrew:
+	@$(foreach val, $(wildcard ./homebrew/*.sh), bash $(val);)
+
