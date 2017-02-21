@@ -1,8 +1,5 @@
 #!/bin/sh
 
-echo "install TMUX"
-brew install tmux
-
 echo "install tmp"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 

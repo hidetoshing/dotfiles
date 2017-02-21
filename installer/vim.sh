@@ -1,13 +1,10 @@
 #!/bin/sh
 
-echo "install vim"
-brew install vim --with-lua
-
 echo "install dein.vim"
 cd ~
 mkdir -p .vim/rc
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/rc/installer.sh
-sh ./install.sh ~/.vim/dein
+sh ~/.vim/rc/installer.sh ~/.vim/dein
 
 echo "setup .vimrc"
 cat << EOT > ~/.vimrc

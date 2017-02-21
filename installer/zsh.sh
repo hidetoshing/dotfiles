@@ -1,8 +1,5 @@
 #!/bin/sh
 
-echo "install zsh"
-brew install zsh
-
 echo "install zplug"
 curl -sL zplug.sh/installer | zsh
 
