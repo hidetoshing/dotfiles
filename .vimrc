@@ -151,5 +151,21 @@ command! -nargs=1 -complete=filetype Temp edit ~/.scratch.<args>
 command! -nargs=0 Recent :Unite neomru/file -default-action=tabopen
 command! -nargs=0 Bookmark :Unite bookmark -default-action=tabopen
 
+""" ----- gui settings
+if has('gui_running')
+    set guioptions-=T " hide toolbar
+    set guioptions-=e " gui環境で tablineを使う
+    set antialias
+    set visualbell t_vb= " no beep
 
+    set guifont=Ubuntu\ Mono:h16
+    set guifontwide=01フロップデザイン:h10
+
+    " special chars (GUI only)
+    set lcs=tab:>.,trail:_,extends:\
+    set nolist
+
+    " reset IME (Insert mode)
+    "au BufNewFile,BufRead * set iminsert=0
+endif
 """ EOF
