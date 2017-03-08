@@ -2,7 +2,7 @@ let s:dein_dir = expand('~/.vim/dein')
 
 " reset augroup
 augroup LocalAutoCmd
-  autocmd!
+	autocmd!
 augroup END
 
 " dein.vim 本体
@@ -10,35 +10,50 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
 if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+	if !isdirectory(s:dein_repo_dir)
+		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+	endif
+	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
 " 設定開始
 if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+	call dein#begin(s:dein_dir)
 
-  " プラグインリストを収めた TOML ファイル
-  " ~/.vim/rc/dein.toml,deinlazy.tomlを用意する
-  let g:rc_dir    = expand('~/.vim/rc')
-  let s:toml      = g:rc_dir . '/dein.toml'
-  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+	" プラグインリストを収めた TOML ファイル
+	" ~/.vim/rc/dein.toml,deinlazy.tomlを用意する
+	let g:rc_dir    = expand('~/.vim/rc')
+	let s:toml      = g:rc_dir . '/dein.toml'
+	let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
-  " TOML を読み込み、キャッシュしておく
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+	" TOML を読み込み、キャッシュしておく
+	call dein#load_toml(s:toml,      {'lazy': 0})
+	call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
-  " 設定終了
-  call dein#end()
-  call dein#save_state()
+	" 設定終了
+	call dein#end()
+	call dein#save_state()
 endif
 
 " もし、未インストールものものがあったらインストール
 if dein#check_install()
-  call dein#install()
+	call dein#install()
 endif
+
+function! s:dein_list() abort
+    echomsg '[dein] #: not sourced, X: not installed'
+    for pair in items(dein#get())
+        echomsg (!isdirectory(pair[1].path) ? 'X' : pair[1].sourced ? ' ' : '#') pair[0]
+    endfor
+endfunction
+command! DeinList call s:dein_list()
+command! DeinCacheClean call dein#clear_state()
+command! DeinUpdate call dein#update()
+function! s:dein_update_log() abort
+    echomsg '[dein] updates log'
+    echomsg dein#get_updates_log()
+endfunction
+command! DeinUpdateLog call s:dein_update_log()
 
 filetype plugin indent on
 syntax on
@@ -146,26 +161,26 @@ nnoremap <silent> [Prefix]fn :<C-u>Unite outline<CR>
 command! -nargs=0 ScratchOpen :tabnew<CR>e ~/.scratch.howm
 
 " temp extention file
-command! -nargs=1 -complete=filetype Temp edit ~/.scratch.<args>
+command! -nargs=1 -complete=filetype Temp tabe ~/.scratch.<args>
 
 command! -nargs=0 Recent :Unite neomru/file -default-action=tabopen
 command! -nargs=0 Bookmark :Unite bookmark -default-action=tabopen
 
 """ ----- gui settings
 if has('gui_running')
-    set guioptions-=T " hide toolbar
-    set guioptions-=e " gui環境で tablineを使う
-    set antialias
-    set visualbell t_vb= " no beep
+	set guioptions-=T " hide toolbar
+	set guioptions-=e " gui環境で tablineを使う
+	set antialias
+	set visualbell t_vb= " no beep
 
-    set guifont=Ubuntu\ Mono:h16
-    set guifontwide=01フロップデザイン:h10
+	set guifont=Ubuntu\ Mono:h16
+	set guifontwide=01フロップデザイン:h10
 
-    " special chars (GUI only)
-    set lcs=tab:>.,trail:_,extends:\
-    set nolist
+	" special chars (GUI only)
+	""set lcs=tab:>.,trail:_,extends:\
+	set nolist
 
-    " reset IME (Insert mode)
-    "au BufNewFile,BufRead * set iminsert=0
+	" reset IME (Insert mode)
+	"au BufNewFile,BufRead * set iminsert=0
 endif
 """ EOF
