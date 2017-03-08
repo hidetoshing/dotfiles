@@ -128,6 +128,11 @@ vnoremap <S-up> <up>
 vnoremap <S-left> <left>
 vnoremap <S-right> <right>
 
+" move option
+nnoremap <silent> g. `.
+nnoremap <silent> g0 `.0
+nnoremap <silent> gm ``
+
 " auto paren (visual mode)
 vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
