@@ -5,8 +5,8 @@ echo "make directories"
 cd ~
 
 # for development
-mkdir -v Workspace
+mkdir -p -v Workspace
 
 # GHQ root directory
-mkdir -v src
+mkdir -p -v src
 
