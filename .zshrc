@@ -3,7 +3,7 @@ source ~/.zplug/init.zsh
 ##### plugins
 
 # Let zplug manage itself
-zplug "zplug/zplug"
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 ## completions
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
@@ -12,13 +12,12 @@ zplug "zsh-users/zsh-completions", as:plugin, use:"src"
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "sindresorhus/pure"
 
-## fzy
-zplug "jhawthorn/fzy", as:command, rename-to:fzy, \
-    hook-build:"
-    {
-        make
-        sudo make install
-    }"
+## tools
+zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make"
+zplug "peco/peco", as:command, from:gh-r
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:"fzf"
+zplug "monochromegane/the_platinum_searcher", as:command, from:gh-r, rename-to:"pt"
+zplug "motemen/ghq", as:command, from:gh-r, rename-to:ghq
 
 ## directory moving
 zplug "b4b4r07/enhancd", use:init.sh
