@@ -41,7 +41,7 @@
 [color]
     ui = true
 [ghq]
-    root = ~/local/src
+    root = ~/src
 
 [core]
 	editor = vim
