@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "install tmp"
+echo "install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "setup tmux conf"
