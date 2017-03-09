@@ -40,8 +40,7 @@
     cmm = commit -m
 [color]
     ui = true
-[ghq]
-    root = ~/src
-
 [core]
 	editor = vim
+[ghq]
+    root = ~/src
