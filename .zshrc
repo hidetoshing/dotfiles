@@ -3,7 +3,7 @@ source ~/.zplug/init.zsh
 ##### plugins
 
 # Let zplug manage itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+#zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 ## completions
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
