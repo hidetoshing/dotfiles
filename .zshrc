@@ -45,7 +45,7 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-zplug load --verbose
+zplug load
 
 # rbenv settings
 eval "$(rbenv init -)"
