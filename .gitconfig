@@ -44,3 +44,6 @@
 	editor = vim
 [ghq]
     root = ~/src
+[user]
+	name = hidetoshing
+	email = hidetoshing@gmail.com

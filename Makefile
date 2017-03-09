@@ -15,3 +15,5 @@ link:
 install:
 	@$(foreach val, $(wildcard ./installer/*.sh), bash $(val);)
 
+.PONEY: help homebrew link install
+
