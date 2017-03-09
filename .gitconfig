@@ -42,6 +42,7 @@
     ui = true
 [core]
 	editor = vim
+    excludesfile = ~/.gitignore_global
 [ghq]
     root = ~/src
 [user]
