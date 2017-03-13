@@ -23,7 +23,7 @@ zplug "motemen/ghq", as:command, from:gh-r, rename-to:ghq
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "mollifier/cd-gitroot"
 
-# syntax hilight. nice:10 needed to load after compinit
+# syntax hilight. defer setting needed to load after compinit
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 
@@ -59,7 +59,6 @@ export ENHANCD_DOT_ARG='up'
 # additional path
 path=(
     $HOME/bin(N-/)
-    $HOME/local/bin(N-/)
     /usr/local/opt/coreutils/libexec/gnubin(N-/)
     /usr/local/bin(N-/)
     $path
