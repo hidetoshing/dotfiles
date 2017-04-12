@@ -81,6 +81,7 @@ hook_add = '''
 repo = 'scrooloose/nerdtree'
 hook_add = '''
     let g:NERDTreeShowBookmarks = 1
+    "" autoquit
     au LocalAutoCmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 '''
 
