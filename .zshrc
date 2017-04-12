@@ -48,7 +48,9 @@ fi
 zplug load
 
 # rbenv settings
-eval "$(rbenv init -)"
+if builtin command -v rbenv > /dev/null; then
+  eval "$(SHELL=zsh rbenv init -)"
+fi
 
 # plugin settings
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
