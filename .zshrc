@@ -77,4 +77,4 @@ alias ls="ls --color"
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
-
+alias -g HOSTS='grep HostName ~/.ssh/config | cut -c12- | fzy -l 24 -p "HOSTS > "'
