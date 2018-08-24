@@ -18,5 +18,5 @@ install:
 ssh:
 	ssh-keygen -t rsa -b 4096
 
-.PONEY: help homebrew link install ssh
+.PONEY: help homebrew link install
 
