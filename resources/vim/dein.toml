@@ -17,8 +17,8 @@ depends = ['unite.vim']
 repo = 'Shougo/neomru.vim'
 on_path = '.*'
 
-[[plugins]]
-repo = 'ConradIrwin/vim-bracketed-paste'
+#[[plugins]]
+#repo = 'ConradIrwin/vim-bracketed-paste'
 
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
@@ -116,4 +116,7 @@ repo = 'hidetoshing/setLinenumber'
 hook_add = '''
     nmap [Prefix]l [Line]
 '''
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
 

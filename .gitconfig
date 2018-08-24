@@ -29,7 +29,7 @@
     # master以外のマージ済みブランチを削除する
     bclean = "!f() { git branch --merged master | grep -v " master$" | xargs -I % git branch -d %;}; f"
     # git start <branch-name> <work-summary> masterを最新にした上で新規作業ブランチ作って空コミットする
-    start = "!f() { [ -z \"${1+x}\" ] && { echo 'Please specify branch name.'; exit 1;}; [ -z \"${2+x}\" ] && { echo 'Please specify your work summary.'; exit 1;}; git checkout master && git up && git checkout -b $1 && git commit --allow-empty -m \"${2} 作業開始\" && git push -u origin $1; }; f"
+    start = "!f() { [ -z \"${1+x}\" ] && { echo 'Please specify branch name.'; exit 1;}; [ -z \"${2+x}\" ] && { echo 'Please specify your work summary.'; exit 1;}; git checkout master && git up && git checkout -b $1 && git commit --allow-empty -m \":octocat: ${2} 作業開始\" && git push -u origin $1; }; f"
     # masterに移動して、最新に更新 + 不要ブランチを削除
     done = "!f() { git checkout master && git up && git bclean; }; f"
     # これを叩くと`git co pr/{pullreq-number}`でPRをチェックアウトできるようになる

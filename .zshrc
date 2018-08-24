@@ -58,6 +58,10 @@ export EMOJI_CLI_FILTER='fzy:fzf:peco'
 export EMOJI_CLI_KEYBIND='^e'
 export ENHANCD_DOT_ARG='up'
 
+# extentions
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
 # additional path
 path=(
     $HOME/bin(N-/)
@@ -77,4 +81,5 @@ alias ls="ls --color"
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
+
 alias -g HOSTS='grep HostName ~/.ssh/config | cut -c12- | fzy -l 24 -p "HOSTS > "'

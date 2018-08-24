@@ -18,4 +18,4 @@ bind , title
 
 # todo: resolv env
 shell /usr/bin/zsh
-term xterm-256color
+term screen-256color

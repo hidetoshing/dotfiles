@@ -84,7 +84,6 @@ set nf=hex
 nnoremap ++ <C-a>
 nnoremap -- <C-x>
 
-
 " set IME Off
 set iminsert=0
 set imsearch=0
@@ -92,8 +91,6 @@ set imdisable
 
 " disable matchparen
 let g:loaded_matchparen = 1
-
-set clipboard+=unnamed
 
 """ ----- filetype settings
 augroup coding
@@ -178,8 +175,8 @@ if has('gui_running')
 	set antialias
 	set visualbell t_vb= " no beep
 
-	set guifont=Ubuntu\ Mono:h16
-	set guifontwide=01フロップデザイン:h10
+	set guifont=Cica:h16
+    "set guifontwide=01フロップデザイン:h10
 
 	" special chars (GUI only)
 	""set lcs=tab:>.,trail:_,extends:\
@@ -188,4 +185,6 @@ if has('gui_running')
 	" reset IME (Insert mode)
 	"au BufNewFile,BufRead * set iminsert=0
 endif
+
+set clipboard+=unnamed
 """ EOF
