@@ -15,8 +15,11 @@ link:
 install:
 	@$(foreach val, $(wildcard ./installer/*.sh), bash $(val);)
 
-ssh:
+ssh: .ssh/id_rsa
+
+.ssh/id_rsa:
 	ssh-keygen -t rsa -b 4096
+	
 
 .PONEY: help homebrew link install
 
