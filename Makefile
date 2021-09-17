@@ -10,12 +10,13 @@ $(USER_HOME)/%: ${CURDIR}/$*
 	ln -fs $< $@
 
 ${CURDIR}/%:
-	git pull origin master
+	touch $@
 
 .PHONY help:
 	cat Makefile | grep '^?.:'
 
-## uninstall settings
+## clean
+## - cleanup config w/o bashrc
 .PHONY clean:
 	rm -r $(XDG_CONFIG_HOME)/git
 	rm -r $(XDG_CONFIG_HOME)/nvim
@@ -25,12 +26,13 @@ ${CURDIR}/%:
 	rm $(USER_HOME)/.zshenv
 	rm $(USER_HOME)/.screen
 
-## config all
+## configure
+## - config all
 .PHONY configure: git vim zsh tmux screen
 	@echo "configured"
 
 ## zsh
-.PHONY zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(USER_HOME)/.zshenv
+.PHONY zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(USER_HOME)/.zshenv
 	@echo "zsh completed"
 
 ## bash
