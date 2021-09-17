@@ -1,25 +1,59 @@
-DOTFILES_EXCLUDES := .DS_Store .git .gitmodules .travis.yml
-DOTFILES_TARGET   := $(wildcard .??*)
-DOTFILES_DIR      := $(PWD)
-DOTFILES_FILES    := $(filter-out $(DOTFILES_EXCLUDES), $(DOTFILES_TARGET))
+XDG_CONFIG_HOME ?= "${HOME}/.config"
+XDG_DATA_HOME ?= "${HOME}/.local/share"
+USER_HOME ?= "${HOME}"
 
-help:
-	cat Makefile
+$(XDG_CONFIG_HOME)/%: ${CURDIR}/$*
+	mkdir -p $(@D)
+	ln -fs $< $@
 
-homebrew:
-	@$(foreach val, $(wildcard ./homebrew/*.sh), bash $(val);)
+$(USER_HOME)/%: ${CURDIR}/$*
+	ln -fs $< $@
 
-link:
-	@$(foreach val, $(DOTFILES_FILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+${CURDIR}/%:
+	git pull origin master
 
-install:
-	@$(foreach val, $(wildcard ./installer/*.sh), bash $(val);)
+.PHONY help:
+	cat Makefile | grep '^?.:'
 
-ssh: .ssh/id_rsa
+## uninstall settings
+.PHONY clean:
+	rm -r $(XDG_CONFIG_HOME)/git
+	rm -r $(XDG_CONFIG_HOME)/nvim
+	rm -r $(XDG_DATA_HOME)/nvim
+	rm -r $(XDG_CONFIG_HOME)/tmux
+	rm -r $(XDG_CONFIG_HOME)/zsh
+	rm $(USER_HOME)/.zshenv
+	rm $(USER_HOME)/.screen
 
-.ssh/id_rsa:
-	ssh-keygen -t rsa -b 4096
-	
+## config all
+.PHONY configure: git vim zsh tmux screen
+	@echo "configured"
 
-.PONEY: help homebrew link install
+## zsh
+.PHONY zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(USER_HOME)/.zshenv
+	@echo "zsh completed"
+
+## bash
+.PHONY bash: $(USER_HOME)/.bashrc
+	@echo "bash completed"
+
+## git
+.PHONY git: $(XDG_CONFIG_HOME)/git/config $(XDG_CONFIG_HOME)/git/ignore
+	@echo "git completed"
+
+## vim
+.PHONY vim: $(XDG_CONFIG_HOME)/nvim/init.vim $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim
+	@echo "neovim completed"
+
+$(XDG_DATA_HOME)/nvim/site/autoload/plug.vim:
+	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+## tmux
+.PHONY tmux: $(XDG_CONFIG_HOME)/tmux/tmux.conf
+	git clone https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+	@echo "tmux completed"
+
+## optional
+.PHONY screen: $(USER_HOME)/.screenrc
+	@echo "screen completed"
 
