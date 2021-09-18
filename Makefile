@@ -2,14 +2,9 @@ XDG_CONFIG_HOME ?= ${HOME}/.config
 XDG_DATA_HOME ?= ${HOME}/.local/share
 USER_HOME ?= ${HOME}
 
-$(XDG_CONFIG_HOME)/%: ${CURDIR}/%
+$(USER_HOME)/%: ${CURDIR}/%
 	mkdir -p $(@D)
 	ln -fs $^ $@
-
-$(XDG_CONFIG_HOME)/%: ${CURDIR}/%
-
-$(USER_HOME)/%: ${CURDIR}/%
-	ln -fs $< $@
 
 .PRECIOUS ${CURDIR}/%:
 	touch $@
@@ -40,6 +35,14 @@ homebrew: /usr/local/bin/brew
 /usr/local/bin/brew:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+## install from homebrew
+brew-install:
+	if ! command -v gh &> /dev/null; then brew install gh; fi
+	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
+	if ! command -v gls &> /dev/null; then brew install coreutils; fi
+	if ! command -v tmux &> /dev/null; then brew install tmux; fi
+	if ! command -v nvim &> /dev/null; then brew install neovim; fi
+
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(USER_HOME)/.zshenv
 	@echo "zsh completed"
@@ -54,6 +57,7 @@ git: $(XDG_CONFIG_HOME)/git/config $(XDG_CONFIG_HOME)/git/ignore
 
 ## vim
 vim: $(XDG_CONFIG_HOME)/nvim/init.vim $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim
+	mkdir -p $(XDG_DATA_HOME)/nvim/plugged
 	@echo "neovim completed"
 
 $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim:

@@ -21,18 +21,7 @@ manpath=(
     $manpath
 )
 
-# Add color to ls command
-#export CLICOLOR=1
-alias ls="ls --color"
-alias ll="ls -lh"
-alias la="ls -a"
-alias lla="ls -lha"
-
-alias tree="exa -T"
-
-#alias -g HOSTS='grep "^Host" ~/.ssh/config | cut -c6- | fzf --reverse --height=24 --select-1 --prompt="HOST > "'
-
-alias vim="nvim"
+source $XDG_CONFIG_HOME/zsh/alias
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -71,14 +60,14 @@ export FZF_ALT_C_OPTS="--select-1 --exit-0"
 zinit ice from"gh-r" as"program" pick"pt*/pt"
 zinit load monochromegane/the_platinum_searcher
 
+zinit ice from"gh-r" as"program" pick"gh_*/bin/gh"
+zinit load cli/cli
+
 zinit ice from"gh-r" as"program" pick"ghq_*/ghq"
 zinit load x-motemen/ghq
 
 zinit ice from"gh-r" as"program" mv"jq* -> jq"
 zinit load stedolan/jq
-
-zinit ice from"gh-r" as"program" pick"gh_*/bin/gh"
-zinit load cli/cli
 
 zinit ice from"gh-r" as"program" mv"exa* -> exa"
 zinit load ogham/exa
