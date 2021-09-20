@@ -23,6 +23,7 @@ manpath=(
 
 source $XDG_CONFIG_HOME/zsh/alias
 
+### dircolors
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
@@ -47,10 +48,12 @@ zinit light-mode for \
 
 # plugins
 
-## prompt
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+zinit ice atload'eval `dircolors $PWD/dircolors.256-dark`'
+zinit light "hidetoshing/dircolors-kyanite"
 
+## prompt
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
 ## tools
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
@@ -66,11 +69,14 @@ zinit load cli/cli
 zinit ice from"gh-r" as"program" pick"ghq_*/ghq"
 zinit load x-motemen/ghq
 
-zinit ice from"gh-r" as"program" mv"jq* -> jq"
+zinit ice from"gh-r" as"program" cp"jq* -> jq"
 zinit load stedolan/jq
 
-zinit ice from"gh-r" as"program" mv"exa* -> exa"
+zinit ice from"gh-r" as"program" cp"exa* -> exa"
 zinit load ogham/exa
+
+zinit ice from"gh-r" as"program" cp"rg* -> rg"
+zinit load BurntSushi/ripgrep
 
 zinit ice from"gh-r" as"program" pick"bat-*/bat"
 zinit load sharkdp/bat
@@ -87,4 +93,8 @@ zinit ice wait'0'; zinit load "b4b4r07/emoji-cli"
 zinit light "hidetoshing/zsh-git-commands"
 zinit light "hidetoshing/zsh-easy-history"
 zinit light "hidetoshing/zsh-cd-util"
+
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 

@@ -30,18 +30,18 @@ configure: zsh bash git vim tmux screen
 
 ## brew
 homebrew: /usr/local/bin/brew
-	@echo "install homebrew completed"
 
 /usr/local/bin/brew:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ## install from homebrew
-brew-install:
+brew-install: homebrew
 	if ! command -v gh &> /dev/null; then brew install gh; fi
 	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
-	if ! command -v nvim &> /dev/null; then brew install neovim; fi
+	if ! command -v npm &> /dev/null; then brew install npm; fi
+	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
 
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(USER_HOME)/.zshenv
