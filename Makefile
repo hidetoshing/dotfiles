@@ -38,6 +38,7 @@ homebrew: /usr/local/bin/brew
 brew-install: homebrew
 	if ! command -v gh &> /dev/null; then brew install gh; fi
 	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
+	if ! command -v fzf &> /dev/null; then brew install fzf; fi
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
 	if ! command -v npm &> /dev/null; then brew install npm; fi

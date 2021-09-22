@@ -1,6 +1,6 @@
 
 # plugin settings
-export EMOJI_CLI_FILTER='fzf'
+export EMOJI_CLI_FILTER='fzf-tmux -p'
 export EMOJI_CLI_KEYBIND='^e'
 export ENHANCD_DOT_ARG='up'
 
@@ -23,6 +23,11 @@ manpath=(
 
 source $XDG_CONFIG_HOME/zsh/alias
 
+# load compinit
+autoload -U compinit
+compinit
+
+#
 ### dircolors
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -37,7 +42,7 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Load a few important annexes, without Turbo
+ Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
     zinit-zsh/z-a-patch-dl \
@@ -50,10 +55,14 @@ zinit light-mode for \
 
 zinit ice atload'eval `dircolors $PWD/dircolors.256-dark`'
 zinit light "hidetoshing/dircolors-kyanite"
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 
 ## prompt
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
+
 ## tools
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
@@ -88,13 +97,9 @@ zinit light b4b4r07/enhancd
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 
-zinit ice wait'0'; zinit load "b4b4r07/emoji-cli"
+zinit load "b4b4r07/emoji-cli"
 
 zinit light "hidetoshing/zsh-git-commands"
 zinit light "hidetoshing/zsh-easy-history"
 zinit light "hidetoshing/zsh-cd-util"
-
-if [ -n "$LS_COLORS" ]; then
-    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-fi
 
