@@ -34,6 +34,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'itchyny/lightline.vim'
 
 """ fuzzy finder
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 """ syntax highliting
@@ -154,9 +155,6 @@ EOF
 
 vnoremap R <Plug>(operator-replace)
 
-nmap [Prefix]t [Tab]
-nmap [Prefix]l [Line]
-
 colorscheme nvcode
 if (has("termguicolors"))
     set termguicolors
@@ -165,6 +163,10 @@ if (has("termguicolors"))
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" " 背景色icolors
     hi LineNr ctermbg=NONE guibg=NONE
 endif
+
+""""
+" Clipboard option
+set clipboard+=unnamed
 
 """"
 " incremant option.
@@ -181,28 +183,31 @@ set imdisable
 " disable matchparen
 let g:loaded_matchparen = 1
 
-""" ----- filetype settings
-augroup coding
-    autocmd!
-    autocmd FileType c,cpp,perl,rb,php,ctp,python set cindent
-    autocmd FileType php set ft=php.html
-    autocmd FileType smarty set ft=smarty.html
-augroup END
-
 " undo setting
 if has('persistent_undo')
-    set undodir=~/.vim/undo
+    set undodir=~/.cache/nvim/undo
     set undofile
 endif
 
 """ ----- misc
+" Prefix-key
+nnoremap [Prefix] <nop>
+nmap , [Prefix]
+
 " escape
 inoremap <silent> <Esc> <Esc>
 inoremap <silent> <C-[> <Esc>
 
-"Prefix-key
-nnoremap [Prefix] <nop>
-nmap , [Prefix]
+nmap [Prefix]t [Tab]
+nmap [Prefix]l [Line]
+
+nmap [Prefix]ff :Files<Return>
+nmap [Prefix]fg :GFiles<Return>
+nmap [Prefix]fh :History<Return>
+nmap [Prefix]fb :Buffers<Return>
+nmap [Prefix]fw :Windows<Return>
+nmap [Prefix]fm :Marks<Return>
+nmap [Prefix]f: :Lines<Return>
 
 " shift + move selection
 imap <S-down> <ESC>v
@@ -233,13 +238,7 @@ nnoremap [Prefix]vr  :<C-u>source $MYVIMRC<Return>
 command! -nargs=0 ReloadSetting :<C-u>source $MYVIMRC<Return>
 nnoremap [Prefix]vv  :<C-u>e $MYVIMRC<Return>
 
-""" unite prefix key
-
-" Open Scratch
-command! -nargs=0 ScratchOpen :tabnew<CR>e ~/.scratch.howm
-
 " temp extention file
 command! -nargs=1 -complete=filetype Temp tabe ~/.scratch.<args>
 
-set clipboard+=unnamed
 """ EOF

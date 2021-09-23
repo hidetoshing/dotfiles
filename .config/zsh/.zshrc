@@ -97,7 +97,7 @@ zinit light b4b4r07/enhancd
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 
-zinit load "b4b4r07/emoji-cli"
+zinit light "b4b4r07/emoji-cli"
 
 zinit light "hidetoshing/zsh-git-commands"
 zinit light "hidetoshing/zsh-easy-history"
