@@ -207,7 +207,8 @@ nmap [Prefix]fh :History<Return>
 nmap [Prefix]fb :Buffers<Return>
 nmap [Prefix]fw :Windows<Return>
 nmap [Prefix]fm :Marks<Return>
-nmap [Prefix]f: :Lines<Return>
+nmap [Prefix]fl :Lines<Return>
+nmap [Prefix]fr :Rg<Return>
 
 " shift + move selection
 imap <S-down> <ESC>v

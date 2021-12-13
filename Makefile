@@ -45,7 +45,7 @@ brew-install: homebrew
 	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
 
 ## zsh
-zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(USER_HOME)/.zshenv
+zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(XDG_CONFIG_HOME)/zsh/.zprofile $(USER_HOME)/.zshenv
 	@echo "zsh completed"
 
 ## bash
