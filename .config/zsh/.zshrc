@@ -22,10 +22,9 @@ manpath=(
 )
 
 source $XDG_CONFIG_HOME/zsh/alias
-
+source $HOME/.zshrc
 # load compinit
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
 
 #
 ### dircolors
@@ -92,6 +91,9 @@ zinit load sharkdp/bat
 
 ## directory moving
 zinit light b4b4r07/enhancd
+
+## completion
+zinit light zsh-users/zsh-completions
 
 # syntax hilight. defer setting needed to load after compinit
 zinit light zsh-users/zsh-autosuggestions
