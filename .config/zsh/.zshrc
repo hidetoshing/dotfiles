@@ -1,10 +1,21 @@
 
 ARCH=$(uname -m)
+
+if (( $+commands[sw_vers] )) && (( $+commands[arch] )); then
+	[[ -x /usr/local/bin/brew ]] && alias brew="arch -arch x86_64 /usr/local/bin/brew"
+	alias x86='exec arch -x86_64 /bin/zsh'
+	alias arm='exec arch -arm64e /bin/zsh'
+	switch-arch() {
+		if  [[ "$(uname -m)" == arm64 ]]; then
+            exec arch -arch x86_64 /bin/zsh
+		elif [[ "$(uname -m)" == x86_64 ]]; then
+            exec arch -arch arm64e bin/zsh
+		fi
+	}
+fi
 if [[ $ARCH == arm64 ]]; then
-    echo "Current Architecture: $ARCH"
 	eval $(/opt/homebrew/bin/brew shellenv)
 elif [[ $ARCH == x86_64 ]]; then
-    echo "Current Architecture: $ARCH"
 	eval $(/usr/local/bin/brew shellenv)
 fi
 
