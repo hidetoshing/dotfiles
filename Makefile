@@ -28,14 +28,9 @@ clean:
 configure: zsh bash git vim tmux screen
 	@echo "configured"
 
-## brew
-homebrew: /usr/local/bin/brew
-
-/usr/local/bin/brew:
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ## install from homebrew
-brew-install: homebrew
+brew-install:
 	if ! command -v gh &> /dev/null; then brew install gh; fi
 	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
 	if ! command -v fzf &> /dev/null; then brew install fzf; fi
@@ -45,7 +40,7 @@ brew-install: homebrew
 	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
 
 ## zsh
-zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/alias $(XDG_CONFIG_HOME)/zsh/.zprofile $(USER_HOME)/.zshenv
+zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv
 	@echo "zsh completed"
 
 ## bash
