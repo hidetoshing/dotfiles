@@ -46,14 +46,14 @@ export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 
 # LS
 export CLICOLOR=1
-#export LSCOLORS=Hxfxcxdxbxhgahhbhehchd
-#export LSCOLORS=GxhxdhDhDxehEhhdHdAgag
-#export LS_COLORS='di=1;34:ln=32:so=33:pi=33:ex=31:bd=37;46:cd=30;47:su=37;41:sg=37;44:tw=37;42:ow=37;43'
-#export LS_COLORS='di=1;36:ln=37:so=33;47:pi=1;33;47:ex=1;33:bd=34;47:cd=1;34;47:su=37;43:sg=1;37;43:tw=1;30;46:ow=30;46'
+# export LSCOLORS=Hxfxcxdxbxhgahhbhehchd
+# export LSCOLORS=GxhxdhDhDxehEhhdHdAgag
+# export LS_COLORS='di=1;34:ln=32:so=33:pi=33:ex=31:bd=37;46:cd=30;47:su=37;41:sg=37;44:tw=37;42:ow=37;43'
+# export LS_COLORS='di=1;36:ln=37:so=33;47:pi=1;33;47:ex=1;33:bd=34;47:cd=1;34;47:su=37;43:sg=1;37;43:tw=1;30;46:ow=30;46'
 
 # Default Editor
-export EDITOR='nvim'
-export VISUAL='nvim'
+# export EDITOR='nvim'
+# export VISUAL='nvim'
 
 # Manually moving some to XDG
 export TERMINFO="$XDG_DATA_HOME"/terminfo
@@ -84,3 +84,4 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export VAGRANT_HOME="$XDG_DATA_HOME"/vagrant
 export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME"/vagrant/aliases
+# . "/Users/hidetoshi.nagai/.local/share/cargo/env"
