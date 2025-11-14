@@ -38,6 +38,7 @@ brew-install:
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
 	if ! command -v npm &> /dev/null; then brew install npm; fi
 	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
+	if ! command -v bat &> /dev/null; then brew install bat; fi
 
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv

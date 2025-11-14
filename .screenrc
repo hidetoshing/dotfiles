@@ -17,5 +17,4 @@ nethack on
 bind , title
 
 # todo: resolv env
-shell /usr/bin/zsh
 term screen-256color

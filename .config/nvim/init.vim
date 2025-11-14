@@ -43,9 +43,14 @@ Plug 'junegunn/fzf.vim'
 " color scheme
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
+""" lsp
+" Plug 'neovim/nvim-lspconfig'
+
 " completion
 Plug 'nvim-lua/completion-nvim'
 """ text object plugins
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects' " https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
 Plug 'sgur/vim-textobj-parameter'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-operator-user'
@@ -78,7 +83,6 @@ set shortmess+=c " Avoid showing message extra message when using completion
 let g:completion_enable_auto_popup = 1
 imap <tab> <Plug>(completion_smart_tab)
 imap <s-tab> <Plug>(completion_smart_s_tab)
-
 
 vnoremap R <Plug>(operator-replace)
 
