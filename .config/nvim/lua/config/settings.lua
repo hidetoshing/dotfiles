@@ -1,3 +1,4 @@
+-- General Neovim settings
 
 local opt = vim.opt -- to set options
 

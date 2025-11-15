@@ -26,7 +26,7 @@ require("lazy").setup({
 
     -- functionality
     { import = "plugins.treesitter" },
-    { import = "plugins.lsp" },
+    { import = "plugins.devtools" },
 
     -- fuzzy finder
     { import = "plugins.telescope" },
