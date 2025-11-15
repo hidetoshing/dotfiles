@@ -1,7 +1,9 @@
+
 XDG_CONFIG_HOME ?= ${HOME}/.config
 XDG_DATA_HOME ?= ${HOME}/.local/share
 USER_HOME ?= ${HOME}
 
+## symlink rule
 $(USER_HOME)/%: ${CURDIR}/%
 	mkdir -p $(@D)
 	ln -fs $^ $@
@@ -37,8 +39,9 @@ brew-install:
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
 	if ! command -v npm &> /dev/null; then brew install npm; fi
+	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli; fi
+	if ! command -v luarocks &> /dev/null; then brew install luarocks; fi
 	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
-	if ! command -v bat &> /dev/null; then brew install bat; fi
 
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv
@@ -53,12 +56,9 @@ git: $(XDG_CONFIG_HOME)/git/config $(XDG_CONFIG_HOME)/git/ignore
 	@echo "git completed"
 
 ## vim
-vim: $(XDG_CONFIG_HOME)/nvim/init.vim $(XDG_DATA_HOME)/nvim/site/autoload/plug.vim
-	mkdir -p $(XDG_DATA_HOME)/nvim/plugged
+vim: $(XDG_CONFIG_HOME)/nvim/init.lua
+	ln -fs ${CURDIR}/.config/nvim/lua $(XDG_CONFIG_HOME)/nvim/lua
 	@echo "neovim completed"
-
-$(XDG_DATA_HOME)/nvim/site/autoload/plug.vim:
-	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ## tmux
 tmux: $(XDG_CONFIG_HOME)/tmux/tmux.conf
