@@ -1,7 +1,3 @@
-# plugin settings
-# export EMOJI_CLI_FILTER='fzf-tmux -p'
-# export EMOJI_CLI_KEYBIND='^e'
-# export ENHANCD_DOT_ARG='up'
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -36,20 +32,6 @@ fi
 ## prompt
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
-
-## directory moving
-# zinit light b4b4r07/enhancd
-
-## completion
-# zinit light zsh-users/zsh-completions
-
-# syntax hilight. defer setting needed to load after compinit
-# zinit light zsh-users/zsh-autosuggestions
-# zinit light zdharma-continuum/fast-syntax-highlighting
-# zinit ice wait lucid
-# zinit load zdharma-continuum/history-search-multi-word
-
-# zinit light "b4b4r07/emoji-cli"
 
 zinit light "hidetoshing/zsh-git-commands"
 zinit light "hidetoshing/zsh-easy-history"
