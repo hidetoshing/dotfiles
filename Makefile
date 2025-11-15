@@ -8,9 +8,11 @@ $(USER_HOME)/%: ${CURDIR}/%
 	mkdir -p $(@D)
 	ln -fs $^ $@
 
+## config rule
 .PRECIOUS ${CURDIR}/%:
 	touch $@
 
+## help
 help:
 	cat Makefile | grep '^?.:'
 
@@ -41,6 +43,7 @@ brew-install:
 	if ! command -v npm &> /dev/null; then brew install npm; fi
 	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli; fi
 	if ! command -v luarocks &> /dev/null; then brew install luarocks; fi
+	if ! command -v lua-language-server &> /dev/null; then brew install lua-language-server; fi
 	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
 
 ## zsh
@@ -58,6 +61,8 @@ git: $(XDG_CONFIG_HOME)/git/config $(XDG_CONFIG_HOME)/git/ignore
 ## vim
 vim: $(XDG_CONFIG_HOME)/nvim/init.lua
 	ln -fs ${CURDIR}/.config/nvim/lua $(XDG_CONFIG_HOME)/nvim/lua
+	ln -fs ${CURDIR}/.config/nvim/after $(XDG_CONFIG_HOME)/nvim/after
+	ln -fs ${CURDIR}/.config/nvim/lsp $(XDG_CONFIG_HOME)/nvim/lsp
 	@echo "neovim completed"
 
 ## tmux
