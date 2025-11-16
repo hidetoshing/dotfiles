@@ -6,7 +6,6 @@ return {
         -- nvim-treesitter plugin
         -- Provides better syntax highlighting and code understanding
         'https://github.com/nvim-treesitter/nvim-treesitter',
-        lazy = false,
         branch = 'main',
         build = ':TSUpdate', -- command to run after installation
         config = function()
@@ -24,5 +23,14 @@ return {
         -- Shows code context at the top of the window
         'https://github.com/nvim-treesitter/nvim-treesitter-context',
         opts = {},
+    },
+    {
+        "https://github.com/kylechui/nvim-surround",
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end,
     },
 }
