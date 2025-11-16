@@ -2,8 +2,6 @@
 
 local opt = vim.opt -- to set options
 
-opt.cursorline = true
--- opt.cursorcolumn = true
 
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
 
@@ -19,13 +17,15 @@ opt.autowriteall=true
 opt.backup = false
 opt.swapfile = false
 
-opt.termguicolors=true
 -- opt.autochdir=true
 
 opt.number = true -- Show line numbers
 opt.signcolumn = "yes"
 
 opt.wrap = false
+
+opt.cursorline = true
+-- opt.cursorcolumn = true
 
 -- Make backspace behave in a more intuitive way
 opt.backspace = { "indent", "eol", "start" }
@@ -40,11 +40,12 @@ opt.tabstop = 4
 
 opt.title = true -- Allows neovom to send the Terminal details of the current window, instead of just getting 'v'
 
--- Enable system clipboard integration
-opt.clipboard:append{ 'unnamedplus,unnamed' }
-
 -- setup leader key
 vim.g.mapleader = ","
 
 -- Enable mouse support in all modes
 opt.mouse = "a"
+
+require("config.clipboard").setup()
+require("config.selection").setup()
+
