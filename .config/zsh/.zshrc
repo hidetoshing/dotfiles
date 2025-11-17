@@ -4,8 +4,12 @@
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
+# pyenv
+export PYENV_ROOT=$(pyenv root)
+
 # additional path
 path=(
+    $PYENV_ROOT/bin(N-/)
     $HOME/.nodebrew/current/bin(N-/)
     $HOME/bin(N-/)
     $(brew --prefix coreutils)/libexec/gnubin(N-/)

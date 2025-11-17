@@ -1,7 +1,6 @@
 -- General Neovim settings
 
-local opt = vim.opt -- to set options
-
+local opt = vim.opt    -- to set options
 
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
 
@@ -11,7 +10,7 @@ opt.incsearch = true -- Shows the match while typing
 
 -- Enable auto read and write
 opt.autoread = true
-opt.autowriteall=true
+opt.autowriteall = true
 
 -- Disable backup and swap files
 opt.backup = false
@@ -48,4 +47,3 @@ opt.mouse = "a"
 
 require("config.clipboard").setup()
 require("config.selection").setup()
-

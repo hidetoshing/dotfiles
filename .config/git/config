@@ -45,6 +45,7 @@
     excludesfile = ~/.config/git/ignore
 [ghq]
     root = ~/src
+    root = ~/projects
 [user]
 	name = hidetoshing
 	email = hidetoshing@gmail.com

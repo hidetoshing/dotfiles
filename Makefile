@@ -19,17 +19,19 @@ help:
 ## clean
 ## - cleanup config w/o bashrc
 clean:
-	rm -r $(XDG_CONFIG_HOME)/git
-	rm -r $(XDG_CONFIG_HOME)/nvim
-	rm -r $(XDG_DATA_HOME)/nvim
-	rm -r $(XDG_CONFIG_HOME)/tmux
-	rm -r $(XDG_CONFIG_HOME)/zsh
+	rm -fr $(XDG_CONFIG_HOME)/git
+	rm -fr $(XDG_CONFIG_HOME)/nvim
+	rm -fr $(XDG_DATA_HOME)/nvim
+	rm -fr $(XDG_CONFIG_HOME)/tmux
+	rm -fr $(XDG_CONFIG_HOME)/zsh
+	rm -fr $(XDG_CONFIG_HOME)/wezterm
+	rm $(USER_HOME)/.screenrc
 	rm $(USER_HOME)/.zshenv
 	rm $(USER_HOME)/.screen
 
 ## configure
 ## - config all
-configure: zsh bash git vim tmux screen
+configure: zsh git wezterm vim tmux screen
 	@echo "configured"
 
 
@@ -37,6 +39,7 @@ configure: zsh bash git vim tmux screen
 brew-install:
 	if ! command -v gh &> /dev/null; then brew install gh; fi
 	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
+	if ! command -v fd &> /dev/null; then brew install fd; fi
 	if ! command -v fzf &> /dev/null; then brew install fzf; fi
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
@@ -50,7 +53,10 @@ brew-install:
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv
 	@echo "zsh completed"
 
-## bash
+wezterm: $(XDG_CONFIG_HOME)/wezterm/wezterm.lua
+	@echo "zsh completed"
+
+## bash not install by configure
 bash: $(USER_HOME)/.bashrc
 	@echo "bash completed"
 
