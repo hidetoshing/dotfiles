@@ -16,20 +16,22 @@ $(USER_HOME)/%: ${CURDIR}/%
 help:
 	cat Makefile | grep '^?.:'
 
-## clean
+## cean
 ## - cleanup config w/o bashrc
 clean:
-	rm -r $(XDG_CONFIG_HOME)/git
-	rm -r $(XDG_CONFIG_HOME)/nvim
-	rm -r $(XDG_DATA_HOME)/nvim
-	rm -r $(XDG_CONFIG_HOME)/tmux
-	rm -r $(XDG_CONFIG_HOME)/zsh
+	rm -fr $(XDG_CONFIG_HOME)/git
+	rm -fr $(XDG_CONFIG_HOME)/nvim
+	rm -fr $(XDG_DATA_HOME)/nvim
+	rm -fr $(XDG_CONFIG_HOME)/tmux
+	rm -fr $(XDG_CONFIG_HOME)/zsh
+	rm -fr $(XDG_CONFIG_HOME)/wezterm
+	rm $(USER_HOME)/.screenrc
 	rm $(USER_HOME)/.zshenv
 	rm $(USER_HOME)/.screen
 
 ## configure
 ## - config all
-configure: zsh bash git vim tmux screen
+configure: zsh git wezterm vim tmux screen
 	@echo "configured"
 
 
@@ -37,20 +39,26 @@ configure: zsh bash git vim tmux screen
 brew-install:
 	if ! command -v gh &> /dev/null; then brew install gh; fi
 	if ! command -v rg &> /dev/null; then brew install ripgrep; fi
+	if ! command -v fd &> /dev/null; then brew install fd; fi
 	if ! command -v fzf &> /dev/null; then brew install fzf; fi
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
 	if ! command -v npm &> /dev/null; then brew install npm; fi
-	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli; fi
-	if ! command -v luarocks &> /dev/null; then brew install luarocks; fi
-	if ! command -v lua-language-server &> /dev/null; then brew install lua-language-server; fi
-	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
+	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli tree-sitter; fi
+	if ! command -v luajit &> /dev/null; then brew install luajit luarocks lua-language-server; fi
+	if ! command -v nvim &> /dev/null; then brew install --HEAD neovim; fi
+
+brew-install-weaterm:
+	brew install --cask wezterm
 
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv
 	@echo "zsh completed"
 
-## bash
+wezterm: $(XDG_CONFIG_HOME)/wezterm/wezterm.lua
+	@echo "zsh completed"
+
+## bash not install by configure
 bash: $(USER_HOME)/.bashrc
 	@echo "bash completed"
 

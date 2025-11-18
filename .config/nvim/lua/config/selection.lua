@@ -1,3 +1,4 @@
+-- Description: Configure key mappings for text selection in Neovim
 
 local M = {}
 

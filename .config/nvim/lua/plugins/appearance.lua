@@ -1,6 +1,5 @@
 -- Appearance plugins configuration
 -- .config/nvim/lua/plugins/appiarance.lua
--- Configure appearance-related plugins
 
 return {
     {
@@ -14,6 +13,19 @@ return {
         end,
     },
     {
+        -- noice.nvim plugin
+        -- A fancy UI for messages, cmdline and the popupmenu
+        "https://github.com/folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            "https://github.com/MunifTanjim/nui.nvim",
+            "https://github.com/rcarriga/nvim-notify",
+        }
+    },
+    {
         -- lualine.nvim plugin
         -- A blazing fast and easy to configure Neovim statusline
         "https://github.com/nvim-lualine/lualine.nvim",
@@ -22,27 +34,27 @@ return {
                 theme = "tokyonight-night",
             },
             sections = {
-                lualine_c = {'filename', 'aerial' },
+                lualine_c = { 'filename', 'aerial' },
                 lualine_x = {
                     'encoding',
-                    'fileformat',
                     'filetype',
-                    "require'config.helper_lualine'.lsp_clients()"
+                    -- "require'config.helper_lualine'.lsp_clients()",
+                    "lsp_status"
                 },
                 lualine_z = {
                     'location',
                     "require'config.helper_lualine'.current_time()"
                 },
-            }
+            },
+            tabline = {
+                lualine_a = {"require'config.helper_lualine'.buffer_label()"},
+                lualine_b = {"buffers"},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {'tabs'},
+            },
         },
-    },
-    {
-        -- bufferline.nvim plugin
-        -- A snazzy buffer line (with tabpage integration) for Neovim
-        'https://github.com/akinsho/bufferline.nvim',
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {'nvim-tree/nvim-web-devicons', },
-        opts = {},
     },
     {
         -- nvim-web-devicons plugin
@@ -52,3 +64,4 @@ return {
         opts = {},
     },
 }
+

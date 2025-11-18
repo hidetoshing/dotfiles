@@ -48,6 +48,13 @@ return {
             { "<leader>.", "<cmd>Telescope resume<CR>", desc = "Resume Telescope" },
         },
         cmd = { "Telescope" },
+        opts = {
+            extensions = {
+                file_browser = {
+                    hidden = { file_browser = true, folder_browser = true },
+                },
+            },
+        },
         config = true,
     },
     {
@@ -63,10 +70,6 @@ return {
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
         keys = {
             { "<leader>fe", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "File Browser" },
-        },
-        opts = {
-            hijack_netrw = true,
-            hidden = { file_browser = true, folder_browser = true },
         },
         config = function(_, opts)
             require("telescope").load_extension("file_browser")

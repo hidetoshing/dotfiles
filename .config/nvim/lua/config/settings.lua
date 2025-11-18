@@ -1,7 +1,6 @@
 -- General Neovim settings
 
-local opt = vim.opt -- to set options
-
+local opt = vim.opt    -- to set options
 
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
 
@@ -11,7 +10,7 @@ opt.incsearch = true -- Shows the match while typing
 
 -- Enable auto read and write
 opt.autoread = true
-opt.autowriteall=true
+opt.autowriteall = true
 
 -- Disable backup and swap files
 opt.backup = false
@@ -49,3 +48,9 @@ opt.mouse = "a"
 require("config.clipboard").setup()
 require("config.selection").setup()
 
+if vim.g.neovide then
+    -- Put anything you want to happen only in Neovide here
+    vim.o.guifont = "moralerspace argon:h14"
+end
+
+-- require("config.language_support").setup()  -- LSP settings
