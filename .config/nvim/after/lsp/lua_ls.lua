@@ -1,3 +1,5 @@
+-- Configuration for the Lua language server
+
 ---@type vim.lsp.Config
 return {
     settings = {

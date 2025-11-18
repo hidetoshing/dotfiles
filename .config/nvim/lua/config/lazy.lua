@@ -29,9 +29,12 @@ require("lazy").setup({
         { import = "plugins.treesitter" },
         { import = "plugins.lsp" },
         { import = "plugins.diagnostic" },
+        { import = "plugins.completion" },
         { import = "plugins.git" },
 
         -- fuzzy finder
         { import = "plugins.telescope" },
+        -- filetree
+        { import = "plugins.filetree" },
     },
 })

@@ -1,7 +1,7 @@
 -- init.lua
 
 -- Enable Lua module loader for Neovim 0.9+
--- if vim.loader then vim.loader.enable() end
+if vim.loader then vim.loader.enable() end
 
 -- skipped builtins
 vim.g.loaded_gzip = 1
@@ -37,9 +37,6 @@ require("config.settings")
 
 -- Load the lazy.nvim plugin manager
 require("config.lazy")
-
--- Load LSP configurations
-require("config.lsp")
 
 -- Load user commands
 -- require("config.commands")

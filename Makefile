@@ -16,7 +16,7 @@ $(USER_HOME)/%: ${CURDIR}/%
 help:
 	cat Makefile | grep '^?.:'
 
-## clean
+## cean
 ## - cleanup config w/o bashrc
 clean:
 	rm -fr $(XDG_CONFIG_HOME)/git
@@ -44,10 +44,12 @@ brew-install:
 	if ! command -v gls &> /dev/null; then brew install coreutils; fi
 	if ! command -v tmux &> /dev/null; then brew install tmux; fi
 	if ! command -v npm &> /dev/null; then brew install npm; fi
-	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli; fi
-	if ! command -v luarocks &> /dev/null; then brew install luarocks; fi
-	if ! command -v lua-language-server &> /dev/null; then brew install lua-language-server; fi
-	if ! command -v nvim &> /dev/null; then brew install --HEAD tree-sitter luajit neovim; fi
+	if ! command -v tree-sitter &> /dev/null; then brew install tree-sitter-cli tree-sitter; fi
+	if ! command -v luajit &> /dev/null; then brew install luajit luarocks lua-language-server; fi
+	if ! command -v nvim &> /dev/null; then brew install --HEAD neovim; fi
+
+brew-install-weaterm:
+	brew install --cask wezterm
 
 ## zsh
 zsh: $(XDG_CONFIG_HOME)/zsh/.zshrc $(XDG_CONFIG_HOME)/zsh/.zshalias $(XDG_CONFIG_HOME)/zsh/.zprofile $(XDG_CONFIG_HOME)/zsh/.zinit $(USER_HOME)/.zshenv

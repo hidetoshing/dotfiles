@@ -1,13 +1,10 @@
 -- Define lualine_helper module
-local M = {
-    config = {
-        lsp_icon = " ",
-    }
-}
+
+local M = {}
 
 M.lsp_clients = function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
-    if next(clients) == nil then return " none" end
+    if next(clients) == nil then return "󰐰 -" end
 
     local client_names = {}
     for _, client in pairs(clients) do
@@ -21,16 +18,15 @@ M.lsp_clients = function()
             table.insert(client_names, client.name)
         end
     end
-    return lualine_helper.config.lsp_icon .. table.concat(client_names, ", ")
+    return "󰐰 " .. table.concat(client_names, ", ")
 end
 
 M.current_time = function()
     return os.date("%H:%M") -- 時:分の形式で現在時刻を取得
 end
 
-M.setup = function(args)
-    M.config = vim.tbl_deep_extend("force", M.config, args or {})
+M.buffer_label = function()
+    return " buf:"
 end
 
 return M
-
