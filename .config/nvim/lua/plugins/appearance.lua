@@ -29,9 +29,6 @@ return {
         -- lualine.nvim plugin
         -- A blazing fast and easy to configure Neovim statusline
         "https://github.com/nvim-lualine/lualine.nvim",
-        keys = {
-            { "<leader>gh", "<cmd>Telescope ghq list<CR>", desc = "List local repositories" },
-        },
         opts = {
             options = {
                 theme = "tokyonight-night",
@@ -55,7 +52,7 @@ return {
                 lualine_c = {},
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = {'tabs'}
+                lualine_z = {'tabs'},
             },
         },
     },
