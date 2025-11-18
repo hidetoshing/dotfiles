@@ -11,6 +11,10 @@
 - install lazy.nvim & plugins
 - require neovim 0.12 or higher
 
+## wezterm config
+
+- set default settings
+
 ## tmux config
 
 - install tpm & tmux plugins

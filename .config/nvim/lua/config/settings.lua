@@ -47,10 +47,9 @@ opt.mouse = "a"
 
 require("config.clipboard").setup()
 require("config.selection").setup()
+require("config.util").setup()
 
-if vim.g.neovide then
-    -- Put anything you want to happen only in Neovide here
-    vim.o.guifont = "moralerspace argon:h14"
-end
+require("config.gui").setup()
+
 
 -- require("config.language_support").setup()  -- LSP settings

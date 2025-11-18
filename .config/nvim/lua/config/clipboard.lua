@@ -28,7 +28,7 @@ M.setup_keymaps = function()
     vim.keymap.set('i', '<D-v>', '<C-r>+', {silent = true, desc = "Paste from system clipboard"})  -- for macOS
 end
 
-M.setup = function(args)
+M.setup = function()
     M.setup_options()
     M.setup_keymaps()
 end

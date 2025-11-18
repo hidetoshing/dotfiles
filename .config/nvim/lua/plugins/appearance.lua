@@ -48,10 +48,17 @@ return {
             },
             tabline = {
                 lualine_a = {"require'config.helper_lualine'.buffer_label()"},
-                lualine_b = {"buffers"},
+                lualine_b = { {
+                    "buffers",
+                    symbols = {
+                        modified = '● ',      -- Text to show when the buffer is modified
+                        alternate_file = ' ', -- Text to show to identify the alternate file
+                        directory =  ' ',     -- Text to show when the buffer is a directory
+                    },
+                } },
                 lualine_c = {},
                 lualine_x = {},
-                lualine_y = {},
+                lualine_y = {'diff'},
                 lualine_z = {'tabs'},
             },
         },
