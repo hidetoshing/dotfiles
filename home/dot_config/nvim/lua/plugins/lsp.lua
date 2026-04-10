@@ -68,10 +68,10 @@ return {
         "https://github.com/dnlhc/glance.nvim",
         cmd = 'Glance',
         keys = {
-            { "<leader>wd", "<cmd>Glance definitions<CR>",      desc = "Glance Definitions" },
-            { "<leader>wr", "<cmd>Glance references<CR>",       desc = "Glance References" },
-            { "<leader>wt", "<cmd>Glance type_definitions<CR>", desc = "Glance Type Definitions" },
-            { "<leader>wi", "<cmd>Glance implementations<CR>",  desc = "Glance Implementations" },
+            { "<leader>gd", "<cmd>Glance definitions<CR>",      desc = "Glance Definitions" },
+            { "<leader>gr", "<cmd>Glance references<CR>",       desc = "Glance References" },
+            { "<leader>gt", "<cmd>Glance type_definitions<CR>", desc = "Glance Type Definitions" },
+            { "<leader>gi", "<cmd>Glance implementations<CR>",  desc = "Glance Implementations" },
         },
         opts = {
             border = {
@@ -85,8 +85,8 @@ return {
         "https://github.com/stevearc/aerial.nvim",
         cmd = { "AerialOpen", "AerialClose", "AerialToggle", "AerialFocus", "AerialNavOpen", "AerialNavToggle", "AerialInfo" },
         keys = {
-            { "<leader>wa", "<cmd>AerialOpen<cr>", desc = "toggle Aerial" },
-            { "<leader>wf", "<cmd>AerialFocus<cr>",  desc = "focus Aerial" },
+            { "<leader>aa", "<cmd>AerialOpen<cr>", desc = "toggle Aerial" },
+            { "<leader>af", "<cmd>AerialFocus<cr>",  desc = "focus Aerial" },
             -- etc.
         },
         opts = {

@@ -20,27 +20,27 @@ return {
             { "<leader>,,", "<cmd>Telescope keymaps<CR>", desc = "find Keymaps" },
 
             { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "find Files" },
-            { "<leader>fG", "<cmd>Telescope git_files<CR>", desc = "find workspace Files" },
+            { "<leader>fw", "<cmd>Telescope git_files<CR>", desc = "find workspace Files" },
             { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "find Help Tags" },
-            { "<leader>fx", "<cmd>Telescope grep_string<CR>", desc = "find current string" },
+            { "<leader>fg", "<cmd>Telescope grep_string<CR>", desc = "find current string" },
             { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "find Recently Files" },
 
-            { "<leader>bb", "<cmd>Telescope buffers<CR>", desc = "find Buffers" },
+            { "<leader>bf", "<cmd>Telescope buffers<CR>", desc = "find Buffers" },
 
             { "<leader>rg", "<cmd>Telescope live_grep<CR>", desc = "Live Grep" },
 
-            { "<leader>Q", "<cmd>Telescope quickfix<CR>", desc = "list Quickfix" },
+            { "<leader>qf", "<cmd>Telescope quickfix<CR>", desc = "list Quickfix" },
 
             { "<leader>Gc", "<cmd>Telescope git_commits<CR>", desc = "list Git Commits" },
             { "<leader>Gs", "<cmd>Telescope git_status<CR>", desc = "list Git Status" },
             { "<leader>Gb", "<cmd>Telescope git_branches<CR>", desc = "list Git Branches" },
 
-            { "<leader>gr", "<cmd>Telescope lsp_references<CR>", desc = "goto LSP References" },
-            { "<leader>gd", "<cmd>Telescope lsp_definitions<CR>", desc = "goto LSP Definitions" },
-            { "<leader>gi", "<cmd>Telescope lsp_implementations<CR>", desc = "goto LSP Implementations" },
-            { "<leader>gs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "goto LSP Document symbols" },
-            { "<leader>gt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "goto LSP Type Definitions" },
-            { "<leader>ga", "<cmd>Telescope aerial<CR>", desc = "goto Aerial symbols" },
+            { "<leader>lr", "<cmd>Telescope lsp_references<CR>", desc = "goto LSP References" },
+            { "<leader>ld", "<cmd>Telescope lsp_definitions<CR>", desc = "goto LSP Definitions" },
+            { "<leader>li", "<cmd>Telescope lsp_implementations<CR>", desc = "goto LSP Implementations" },
+            { "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", desc = "goto LSP Document symbols" },
+            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "goto LSP Type Definitions" },
+            { "<leader>as", "<cmd>Telescope aerial<CR>", desc = "goto Aerial symbols" },
 
             { "<leader>dd", "<cmd>Telescope diagnostics<CR>", desc = "jump diagnostics" },
 
