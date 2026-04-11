@@ -6,6 +6,6 @@ run = "touch mise.toml"
 description = "Set up a Python virtual environment."
 run = [
         "python3 -m venv .venv",
-        "echo '[env]\n_.python.venv = \".venv\"' >> mise.toml"
+        "echo '[env]\n_.python.venv = \".venv\"' >> mise.toml",
         "mise trust"
     ]
