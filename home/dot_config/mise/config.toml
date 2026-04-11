@@ -5,6 +5,6 @@ run = "touch mise.toml"
 [tasks.setup-venv]
 description = "Set up a Python virtual environment."
 run = [
-        "python -m venv .venv",
+        "python3 -m venv .venv",
         "echo '[env]\n_.python.venv = \".venv\"' >> mise.toml"
     ]
