@@ -1,4 +1,3 @@
-
 local M = {}
 
 M.options = {
@@ -9,7 +8,7 @@ M.options = {
 M.setup_for_neovide = function()
     if vim.g.neovide then
         -- Put anything you want to happen only in Neovide here
-        vim.o.guifont = "moralerspace argon:h14"
+        vim.opt.guifont = "moralerspace argon:h14"
     end
 end
 
