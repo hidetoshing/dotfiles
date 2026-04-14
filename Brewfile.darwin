@@ -6,3 +6,6 @@ cask "docker-desktop"
 
 # --- Font ---
 cask "font-moralerspace"
+
+# --- Editor ---
+cask "neovide"
