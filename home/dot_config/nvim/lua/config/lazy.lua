@@ -35,6 +35,7 @@ local spec = {
 
     -- fuzzy finder
     { import = "plugins.telescope" },
+    { import = "plugins.filepicker" },
     -- filetree
     { import = "plugins.filetree" },
 

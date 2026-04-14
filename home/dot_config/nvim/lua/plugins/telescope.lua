@@ -19,15 +19,16 @@ return {
             { "<leader>:", "<cmd>Telescope commands<CR>", desc = "find Commands" },
             { "<leader>,,", "<cmd>Telescope keymaps<CR>", desc = "find Keymaps" },
 
-            { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "find Files" },
-            { "<leader>fw", "<cmd>Telescope git_files<CR>", desc = "find workspace Files" },
-            { "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "find Help Tags" },
-            { "<leader>fg", "<cmd>Telescope grep_string<CR>", desc = "find current string" },
-            { "<leader>fr", "<cmd>Telescope oldfiles<CR>", desc = "find Recently Files" },
+            -- { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "find Files" },
+            -- { "<leader>fw", "<cmd>Telescope git_files<CR>", desc = "find workspace Files" },
+            -- { "<leader>fg", "<cmd>Telescope grep_string<CR>", desc = "find current string" },
+            -- { "<leader>rg", "<cmd>Telescope live_grep<CR>", desc = "Live Grep" },
+
+            { "<leader>ht", "<cmd>Telescope help_tags<CR>", desc = "find Help Tags" },
+            { "<leader>rf", "<cmd>Telescope oldfiles<CR>", desc = "find Recently Files" },
 
             { "<leader>bf", "<cmd>Telescope buffers<CR>", desc = "find Buffers" },
 
-            { "<leader>rg", "<cmd>Telescope live_grep<CR>", desc = "Live Grep" },
 
             { "<leader>qf", "<cmd>Telescope quickfix<CR>", desc = "list Quickfix" },
 
