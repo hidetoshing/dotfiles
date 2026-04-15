@@ -4,12 +4,10 @@
 return {
     {
         "carlos-algms/agentic.nvim",
-
         opts = {
             -- Any ACP-compatible provider works. Built-in: "claude-agent-acp" | "gemini-acp" | "codex-acp" | "opencode-acp" | "cursor-acp" | "copilot-acp" | "auggie-acp" | "mistral-vibe-acp" | "cline-acp" | "goose-acp"
             provider = vim.fn.executable('codex-acp') == 1 and "codex-acp" or "claude-agent-acp", -- setting the name here is all you need to get started
         },
-
         -- these are just suggested keymaps; customize as desired
         keys = {
             {

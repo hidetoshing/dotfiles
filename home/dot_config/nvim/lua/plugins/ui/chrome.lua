@@ -1,5 +1,4 @@
 -- Appearance plugins configuration
--- .config/nvim/lua/plugins/appiarance.lua
 
 return {
     {
