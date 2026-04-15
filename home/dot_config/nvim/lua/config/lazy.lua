@@ -11,7 +11,7 @@ if not uv.fs_stat(lazypath) then
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out,                            "WarningMsg" },
+            { out, "WarningMsg" },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -32,6 +32,7 @@ local spec = {
     { import = "plugins.completion" },
     { import = "plugins.diagnostic" },
     { import = "plugins.git" },
+    { import = "plugins.coding-agent" },
 
     -- fuzzy finder
     { import = "plugins.telescope" },

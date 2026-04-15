@@ -2,13 +2,13 @@
 -- Specify your telescope plugin here
 
 -- keys telescope setting
-    -- f for files / find
-    -- G for git / github
-    -- b for buffers
-    -- r for ripgrep
-    -- q for quickfix
-    -- j for jump (lsp/tree-sitter)
-    -- t for treesitter
+-- f for files / find
+-- G for git / github
+-- b for buffers
+-- r for ripgrep
+-- q for quickfix
+-- j for jump (lsp/tree-sitter)
+-- t for treesitter
 
 return {
     {
@@ -29,7 +29,6 @@ return {
 
             { "<leader>bf", "<cmd>Telescope buffers<CR>", desc = "find Buffers" },
 
-
             { "<leader>qf", "<cmd>Telescope quickfix<CR>", desc = "list Quickfix" },
 
             { "<leader>Gc", "<cmd>Telescope git_commits<CR>", desc = "list Git Commits" },
@@ -41,11 +40,11 @@ return {
             { "<leader>li", "<cmd>Telescope lsp_implementations<CR>", desc = "goto LSP Implementations" },
             { "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", desc = "goto LSP Document symbols" },
             { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "goto LSP Type Definitions" },
-            { "<leader>as", "<cmd>Telescope aerial<CR>", desc = "goto Aerial symbols" },
+            { "<leader>ts", "<cmd>Telescope aerial<CR>", desc = "goto Aerial symbols" },
 
             { "<leader>dd", "<cmd>Telescope diagnostics<CR>", desc = "jump diagnostics" },
 
-            { "<leader>ts", "<cmd>Telescope treesitter<CR>", desc = "jump Treesitter Symbols" },
+            -- { "<leader>ts", "<cmd>Telescope treesitter<CR>", desc = "jump Treesitter Symbols" },
 
             -- resume last telescope
             { "<leader>.", "<cmd>Telescope resume<CR>", desc = "Resume Telescope" },

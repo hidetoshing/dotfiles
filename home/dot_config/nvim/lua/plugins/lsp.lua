@@ -31,8 +31,8 @@ return {
         -- Bridge between mason.nvim and nvim-lspconfig
         "https://github.com/mason-org/mason-lspconfig.nvim",
         dependencies = {
-            { "mason-org/mason.nvim", },
-            { "neovim/nvim-lspconfig", },
+            { "mason-org/mason.nvim" },
+            { "neovim/nvim-lspconfig" },
         },
         event = "VeryLazy",
         opts = {
@@ -40,9 +40,9 @@ return {
             automatic_enable = representative_servers,
         },
         keys = {
-            { "gh",        "<cmd>lua vim.lsp.buf.hover()       <CR>" },
-            { "gd",        "<cmd>lua vim.lsp.buf.definition()  <CR>" },
-            { "gD",        "<cmd>lua vim.lsp.buf.declaration() <CR>" },
+            { "gh", "<cmd>lua vim.lsp.buf.hover()       <CR>" },
+            { "gd", "<cmd>lua vim.lsp.buf.definition()  <CR>" },
+            { "gD", "<cmd>lua vim.lsp.buf.declaration() <CR>" },
         },
         config = function(_, opts)
             local ok, blink = pcall(require, "blink.cmp")
@@ -66,12 +66,12 @@ return {
         -- glance.nvim plugin
         -- A code peek and definition viewer for Neovim
         "https://github.com/dnlhc/glance.nvim",
-        cmd = 'Glance',
+        cmd = "Glance",
         keys = {
-            { "<leader>gd", "<cmd>Glance definitions<CR>",      desc = "Glance Definitions" },
-            { "<leader>gr", "<cmd>Glance references<CR>",       desc = "Glance References" },
+            { "<leader>gd", "<cmd>Glance definitions<CR>", desc = "Glance Definitions" },
+            { "<leader>gr", "<cmd>Glance references<CR>", desc = "Glance References" },
             { "<leader>gt", "<cmd>Glance type_definitions<CR>", desc = "Glance Type Definitions" },
-            { "<leader>gi", "<cmd>Glance implementations<CR>",  desc = "Glance Implementations" },
+            { "<leader>gi", "<cmd>Glance implementations<CR>", desc = "Glance Implementations" },
         },
         opts = {
             border = {
@@ -83,10 +83,18 @@ return {
         -- aerial.nvim plugin
         -- A code outline window for Neovim
         "https://github.com/stevearc/aerial.nvim",
-        cmd = { "AerialOpen", "AerialClose", "AerialToggle", "AerialFocus", "AerialNavOpen", "AerialNavToggle", "AerialInfo" },
+        cmd = {
+            "AerialOpen",
+            "AerialClose",
+            "AerialToggle",
+            "AerialFocus",
+            "AerialNavOpen",
+            "AerialNavToggle",
+            "AerialInfo",
+        },
         keys = {
-            { "<leader>aa", "<cmd>AerialOpen<cr>", desc = "toggle Aerial" },
-            { "<leader>af", "<cmd>AerialFocus<cr>",  desc = "focus Aerial" },
+            { "<leader>to", "<cmd>AerialOpen<cr>", desc = "toggle Aerial" },
+            { "<leader>tf", "<cmd>AerialFocus<cr>", desc = "focus Aerial" },
             -- etc.
         },
         opts = {
