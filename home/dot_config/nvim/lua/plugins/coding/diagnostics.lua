@@ -19,19 +19,4 @@ return {
             require("tiny-inline-diagnostic").setup(opts)
         end,
     },
-    {
-        -- hlchunk.nvim plugin
-        -- Highlight code chunks based on indentation
-        "https://github.com/shellRaining/hlchunk.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            chunk = {
-                enable = true,
-                use_treesitter = true,
-                notify = false,
-                style = { { fg = "#444488" }, { fg = "#c21f30" } },
-            },
-
-        },
-    },
 }

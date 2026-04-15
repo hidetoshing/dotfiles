@@ -1,5 +1,5 @@
--- tools.lua
--- Configure tools-related plugins for Neovim, including formatters and linters
+-- quality.lua
+-- Configure formatter and linter plugins for Neovim
 
 local mason_tool_packages = {
     "checkmake",
@@ -47,20 +47,11 @@ end
 
 return {
     {
-        "https://github.com/stevearc/overseer.nvim",
-        cmd = { "OverseerRun", "OverseerToggle" },
-        keys = {
-            { "<leader>-", "<CMD>OverseerRun<CR>" },
-            { "<leader>_", "<CMD>OverseerToggle<CR>" },
-        },
-        opts = {},
-    },
-    {
         "https://github.com/stevearc/conform.nvim",
         cmd = { "ConformInfo" },
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            { "mason-org/mason.nvim", },
+            { "mason-org/mason.nvim" },
         },
         opts = {
             formatters_by_ft = {
@@ -136,7 +127,7 @@ return {
         "https://github.com/mfussenegger/nvim-lint",
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
-            { "mason-org/mason.nvim", },
+            { "mason-org/mason.nvim" },
         },
         config = function()
             ensure_mason_packages(mason_tool_packages)

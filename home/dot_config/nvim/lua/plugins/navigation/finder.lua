@@ -11,7 +11,7 @@ return {
         end,
         -- if you are using nixos
         -- build = "nix run .#release",
-        opts = { -- (optional)
+        opts = {
             debug = {
                 enabled = false, -- we expect your collaboration at least during the beta
                 show_scores = true, -- to help us optimize the scoring system, feel free to share your scores!

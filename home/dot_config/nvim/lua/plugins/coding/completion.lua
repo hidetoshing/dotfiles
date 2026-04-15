@@ -4,19 +4,19 @@
 return {
     -- blink.cmp plugin
     -- A fast and lightweight completion plugin for Neovim
-    'https://github.com/saghen/blink.cmp',
-    version = '*',
-    dependencies = { 'https://github.com/rafamadriz/friendly-snippets' },
+    "https://github.com/saghen/blink.cmp",
+    version = "*",
+    dependencies = { "https://github.com/rafamadriz/friendly-snippets" },
     event = { "InsertEnter", "CmdLineEnter" },
     opts_extend = { "sources.default" },
 
     ---@module 'blink.cmp'
     opts = {
         keymap = {
-            preset = 'default',
+            preset = "default",
             -- 補完と署名ヘルプは明示操作でのみ開く
-            ['<C-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+            ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
         },
         -- enabled = function() return not vim.tbl_contains({ "markdown" }, vim.bo.filetype) end,
         completion = {
@@ -28,8 +28,8 @@ return {
                 auto_show = false,
                 border = "rounded",
                 draw = {
-                    treesitter = { 'lsp' },
-                    columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' }, },
+                    treesitter = { "lsp" },
+                    columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
                 },
             },
             trigger = {
@@ -46,12 +46,12 @@ return {
             },
         },
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
+            default = { "lsp", "path", "snippets", "buffer" },
             providers = {
                 snippets = {
                     -- `.` や `>` 直後は LSP 補完を優先し、HTML/JS系で snippet 候補が暴れすぎないようにする
                     should_show_items = function(ctx)
-                        return ctx.trigger.initial_kind ~= 'trigger_character'
+                        return ctx.trigger.initial_kind ~= "trigger_character"
                     end,
                 },
             },

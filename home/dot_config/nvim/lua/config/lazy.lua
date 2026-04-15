@@ -22,31 +22,30 @@ vim.opt.rtp:prepend(lazypath)
 
 local is_macos = uv.os_uname().sysname == "Darwin"
 local spec = {
-    -- appiarance
-    { import = "plugins.colorscheme" },
-    { import = "plugins.appearance" },
+    -- ui
+    { import = "plugins.ui" },
 
-    -- functionality
-    { import = "plugins.treesitter" },
-    { import = "plugins.lsp" },
-    { import = "plugins.completion" },
-    { import = "plugins.diagnostic" },
+    -- editor
+    { import = "plugins.editor" },
+
+    -- coding
+    { import = "plugins.coding" },
+
+    -- navigation
+    { import = "plugins.navigation" },
+
+    -- git
     { import = "plugins.git" },
-    { import = "plugins.coding-agent" },
 
-    -- fuzzy finder
-    { import = "plugins.telescope" },
-    { import = "plugins.filepicker" },
-    -- filetree
-    { import = "plugins.filetree" },
+    -- automation
+    { import = "plugins.automation" },
 
-    -- tools
-    { import = "plugins.tools" },
+    -- integrations
+    { import = "plugins.integrations.agent" },
 }
 
 if is_macos then
-    -- editing
-    table.insert(spec, { import = "plugins.obsidian" })
+    table.insert(spec, { import = "plugins.integrations.obsidian" })
 end
 
 -- Configure lazy.nvim

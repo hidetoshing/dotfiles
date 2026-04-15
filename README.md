@@ -53,6 +53,7 @@ curl -fsSL https://raw.githubusercontent.com/hidetoshing/dotfiles/master/install
 - **git**: `~/.config/git/config` と `ignore` を適用。エイリアスや `ghq.root` などを統合管理。
 - **starship**: `~/.config/starship.toml` を展開し、左側がリポジトリ、右側がランタイム／所要時間を表示。
 - **neovim**: `lazy.nvim` ベースの Lua 構成。`run_once_install-lazy-nvim.sh.tmpl` が lazy.nvim を所定のパスに展開し、`home/dot_config/nvim/**` を適用。
+  plugin 定義は `lua/plugins/{ui,editor,coding,navigation,git,automation,integrations}/` の責務単位で整理し、LSP・補完・診断・検索・UI を分けて保守しやすくしています。
   `mason-lspconfig.nvim` で `python / lua / shell(zsh, bash) / html / JavaScript / React / Vue / Docker / Go / Rust / Markdown / Makefile / GitHub Copilot` 向けの代表的な LSP を初回起動時から自動導入します。
   `conform.nvim` と `nvim-lint` で上記言語向けの Formatter / Linter も連携し、CLI ツールは Mason から自動導入します。
   保存時の自動フォーマットは既定で無効化しており、必要な場合は `:FormatEnable` / `:FormatDisable` (`!` 付きでバッファローカル) と `:Format` で手動制御できます。

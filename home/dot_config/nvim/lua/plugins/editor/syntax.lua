@@ -5,10 +5,10 @@ return {
     {
         -- nvim-treesitter plugin
         -- Provides better syntax highlighting and code understanding
-        'https://github.com/nvim-treesitter/nvim-treesitter',
-        branch = 'main',
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        branch = "main",
         event = "VeryLazy",
-        build = ':TSUpdate', -- command to run after installation
+        build = ":TSUpdate", -- command to run after installation
         config = function()
             vim.api.nvim_create_autocmd("FileType", {
                 group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
@@ -31,17 +31,8 @@ return {
     {
         -- treesitter-context plugin
         -- Shows code context at the top of the window
-        'https://github.com/nvim-treesitter/nvim-treesitter-context',
+        "https://github.com/nvim-treesitter/nvim-treesitter-context",
         event = "VeryLazy",
         opts = {},
-    },
-    {
-        "https://github.com/kylechui/nvim-surround",
-        event = "VeryLazy",
-        config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end,
     },
 }
