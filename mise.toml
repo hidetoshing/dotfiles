@@ -2,3 +2,7 @@
 [tools]
 node = "lts"
 python = "latest"
+
+[tasks.up]
+description = "Apply all configuration changes."
+run = "chezmoi update --apply"
