@@ -1,0 +1,13 @@
+# Bash login shells reuse the shared POSIX environment in ~/.config/sh/env.
+
+if [ -r "$HOME/.profile" ]; then
+  . "$HOME/.profile"
+fi
+
+case $- in
+  *i*)
+    if [ -r "$HOME/.bashrc" ]; then
+      . "$HOME/.bashrc"
+    fi
+    ;;
+esac

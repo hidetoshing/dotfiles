@@ -1,6 +1,9 @@
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
+# Shared environment variables and PATH are loaded from ~/.config/sh/env.
+# Keep this file focused on interactive zsh behavior.
+
 ### historical backward/forward search with linehead string binded to ^P/^N
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -54,9 +57,12 @@ if [[ -d "$HOME/.docker/completions" ]]; then
 fi
 
 # load compinit exactly once
+ZSH_COMPDUMP_DIR="$XDG_CACHE_HOME"/zsh
+mkdir -p "$ZSH_COMPDUMP_DIR"
+ZCOMPDUMP="$ZSH_COMPDUMP_DIR"/.zcompdump
 autoload -U compinit
 if [[ -z ${_compinit_initialized:-} ]]; then
-    compinit
+    compinit -d "$ZCOMPDUMP"
     typeset -g _compinit_initialized=1
 fi
 

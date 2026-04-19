@@ -1,0 +1,7 @@
+# Shared login environment for POSIX shells.
+# Shell-agnostic variables and PATH live in ~/.config/sh/env.
+
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+if [ -r "$XDG_CONFIG_HOME/sh/env" ]; then
+  . "$XDG_CONFIG_HOME/sh/env"
+fi

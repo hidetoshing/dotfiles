@@ -1,28 +1,9 @@
-# Locale
-: "${LANG:=en_US.UTF-8}"
-: "${LC_CTYPE:=${LANG}}"
-export LANG LC_CTYPE
-
-# XDG Base Directories
+# Load the shared POSIX environment first so zsh and non-zsh shells
+# keep the same baseline variables and PATH.
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
-: "${XDG_CACHE_HOME:=$HOME/.cache}"
-: "${XDG_DATA_HOME:=$HOME/.local/share}"
-: "${XDG_STATE_HOME:=$HOME/.local/state}"
-: "${XDG_DATA_DIRS:=/usr/local/share:/usr/share}"
-: "${XDG_CONFIG_DIRS:=/etc/xdg}"
-export XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME XDG_DATA_DIRS XDG_CONFIG_DIRS
+if [ -r "$XDG_CONFIG_HOME/sh/env" ]; then
+  . "$XDG_CONFIG_HOME/sh/env"
+fi
 
 # Direct zsh configuration directory
-export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
-
-# Pager / less
-export PAGER=${PAGER:-less}
-export LESS='-F -g -i -M -R -S -w -X -z-4 -j4'
-export LESSHISTFILE="$XDG_STATE_HOME"/less/history
-
-# Colorized ls output
-export CLICOLOR=1
-
-# Default editor
-export EDITOR=${EDITOR:-nvim}
-export VISUAL=${VISUAL:-$EDITOR}
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"

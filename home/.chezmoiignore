@@ -2,3 +2,6 @@
 {{ if ne .chezmoi.os "darwin" }}
 dot_config/wezterm/**
 {{ end }}
+
+# Ignore zsh completion caches generated during interactive startup
+dot_config/zsh/.zcompdump*
