@@ -1,3 +1,8 @@
+[tools]
+node = 'latest'
+python = "latest"
+watchexec = 'latest'
+
 [tasks.init]
 description = "miseの設定ファイルを追加します"
 run = "touch mise.toml"
