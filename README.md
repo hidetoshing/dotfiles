@@ -19,6 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/hidetoshing/dotfiles/master/install
    - zinit / TPM / lazy.nvim を自動クローン
    - `brew bundle` ＋ `brew bundle --file=Brewfile.darwin` (macOS 時)
    - `mise install` で runtimes を管理
+   - GitHub 用 SSH 鍵 (`~/.ssh/id_ed25519_github`) を初回だけ作成し、`gh` ログイン済みなら GitHub に公開鍵を追加
    - fzf のキーバインド／補完を `brew --prefix` 配下から再構成
 
 ## レポジトリアーキテクチャ
@@ -37,6 +38,12 @@ curl -fsSL https://raw.githubusercontent.com/hidetoshing/dotfiles/master/install
 - **共通**: `install.sh` で Homebrew → chezmoi → `Brewfile` → `mise` を順番に適用
 - **macOS だけ**: `Brewfile.darwin` を追加で `brew bundle` し、GUI アプリや cask (wezterm など) を導入
 - **Linux だけ**: Homebrew は `/home/linuxbrew/.linuxbrew` に展開され、cask 部分はスキップ
+
+## GitHub SSH 鍵
+
+- 初回 `chezmoi apply` 後に `run_once_after_30_setup-github-ssh-key.sh.tmpl` が動作し、`~/.ssh/id_ed25519_github` が無ければ ed25519 鍵を作成します。
+- `ssh-agent` が使えるセッションでは作成済み鍵を agent に追加します。
+- `gh auth login` 済みの場合は `gh ssh-key add` で公開鍵を GitHub に追加します。未ログインの場合は処理を止めず、後から実行するコマンドをログに表示します。
 
 ## mise ランタイム管理
 

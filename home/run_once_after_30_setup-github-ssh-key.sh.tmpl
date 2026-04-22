@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() {
+  printf '[github-ssh-key] %s\n' "$*"
+}
+
+ensure_ssh_dir() {
+  mkdir -p "${HOME}/.ssh"
+  chmod 700 "${HOME}/.ssh"
+}
+
+git_email() {
+  git config --global user.email 2>/dev/null || printf '%s\n' "${USER}@$(hostname)"
+}
+
+ensure_key() {
+  local key_path=$1
+  local email=$2
+
+  if [ -f "$key_path" ]; then
+    log "既存の鍵を使用します: ${key_path}"
+    return 0
+  fi
+
+  log "GitHub用のSSH鍵を作成します: ${key_path}"
+  ssh-keygen -t ed25519 -C "$email" -f "$key_path" -N ""
+}
+
+add_to_agent() {
+  local key_path=$1
+  local fingerprint
+  fingerprint="$(ssh-keygen -lf "${key_path}.pub" -E sha256 | awk '{print $2}')"
+
+  if ! command -v ssh-add >/dev/null 2>&1; then
+    log "ssh-add が見つからないため ssh-agent への追加をスキップします"
+    return 0
+  fi
+
+  if [ -z "${SSH_AUTH_SOCK:-}" ]; then
+    log "SSH_AUTH_SOCK が未設定のため ssh-agent への追加をスキップします"
+    return 0
+  fi
+
+  if ssh-add -l -E sha256 2>/dev/null | grep -qF "$fingerprint"; then
+    log "ssh-agent には既に追加済みです"
+    return 0
+  fi
+
+  log "ssh-agent に鍵を追加します"
+  ssh-add "$key_path" >/dev/null
+}
+
+add_to_github() {
+  local key_path=$1
+  local public_key
+  public_key="$(cat "${key_path}.pub")"
+
+  if ! command -v gh >/dev/null 2>&1; then
+    log "gh が見つからないため GitHub への公開鍵追加をスキップします"
+    return 0
+  fi
+
+  if ! gh auth status -h github.com >/dev/null 2>&1; then
+    log "gh が未ログインのため GitHub への公開鍵追加をスキップします"
+    log "必要に応じて gh auth login を実行後、gh ssh-key add ${key_path}.pub --title \"$(hostname)-dotfiles\" を実行してください"
+    return 0
+  fi
+
+  if gh ssh-key list --json key --jq '.[].key' 2>/dev/null | grep -qF "$public_key"; then
+    log "GitHub には既に公開鍵が登録済みです"
+    return 0
+  fi
+
+  log "GitHub に公開鍵を追加します"
+  gh ssh-key add "${key_path}.pub" --title "$(hostname)-dotfiles"
+}
+
+main() {
+  local key_path="${HOME}/.ssh/id_ed25519_github"
+  local email
+  email="$(git_email)"
+
+  ensure_ssh_dir
+  ensure_key "$key_path" "$email"
+  add_to_agent "$key_path"
+  add_to_github "$key_path"
+}
+
+main "$@"
