@@ -130,6 +130,15 @@ TLS検証の無効化と平文保存になり得るcredential helperはセキュ
 
 TPM本体は `~/.config/tmux/plugins/tpm` に導入します。プラグインの初回インストールはtmux内でTPMの操作が必要になる場合があります。
 
+## Herdr
+
+設定元は `home/dot_config/herdr/config.toml`、展開先は `~/.config/herdr/config.toml` です。
+
+- prefixは既存のtmux設定と同じ `C-t`
+- prefix以外のキーバインド、テーマ、UI、更新設定はHerdrの既定値を使用
+
+移行期間中はtmuxとHerdrを併存させます。Herdrは新しい設定項目を必要になったときだけ追加し、既定値との差分を最小限に保ちます。Codexなどのエージェント統合は各ツールのユーザー設定を書き換えるため、このdotfilesでは自動導入しません。
+
 ## starship
 
 設定元は `home/dot_config/starship.toml`、展開先は `~/.config/starship.toml` です。zsh起動時にstarshipが利用可能な場合だけ初期化します。
@@ -158,7 +167,7 @@ Homebrewのfzfインストーラーを使用し、zsh/tmux向けキーバイン�
 
 ### 共通
 
-`Brewfile` はGit/gh、検索・移動系CLI、基本ユーティリティ、chezmoi、Neovim、tmux、starship、Docker CLIなどを管理します。
+`Brewfile` はGit/gh、検索・移動系CLI、基本ユーティリティ、chezmoi、Neovim、tmux、Herdr、starship、Docker CLIなどを管理します。
 
 ### macOS
 

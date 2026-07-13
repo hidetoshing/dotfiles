@@ -24,6 +24,7 @@ brew "mise"
 # --- Editor / Shell ---
 brew "neovim"
 brew "tmux"
+brew "herdr"
 brew "starship"
 
 # --- Git / Docker TUI ---

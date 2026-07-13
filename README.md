@@ -2,7 +2,7 @@
 
 macOSとLinuxの開発環境を、[chezmoi](https://www.chezmoi.io/)でセットアップ・管理するための個人用dotfilesです。
 
-HomebrewによるCLI導入、Shell、Git、tmux、Neovimなどの設定をまとめて適用します。既存のホームディレクトリへ設定ファイルを展開するため、内容を確認した上で使用してください。
+HomebrewによるCLI導入、Shell、Git、tmux、Herdr、Neovimなどの設定をまとめて適用します。既存のホームディレクトリへ設定ファイルを展開するため、内容を確認した上で使用してください。
 
 ## 対応環境
 
@@ -56,6 +56,7 @@ chezmoi --version
 git --version
 nvim --version
 tmux -V
+herdr --version
 ```
 
 GitHubに `~/.ssh/id_ed25519_github.pub` が登録されていることも確認してください。
