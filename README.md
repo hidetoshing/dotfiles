@@ -1,67 +1,105 @@
 # dotfiles
 
+macOSとLinuxの開発環境を、[chezmoi](https://www.chezmoi.io/)でセットアップ・管理するための個人用dotfilesです。
+
+HomebrewによるCLI導入、Shell、Git、tmux、Neovimなどの設定をまとめて適用します。既存のホームディレクトリへ設定ファイルを展開するため、内容を確認した上で使用してください。
+
+## 対応環境
+
+- macOS
+- Linux
+- `bash`、`curl`、`git`を実行できる環境
+- Homebrewの導入に必要な権限とネットワーク接続
+
+macOSではCLIに加えてWezTerm、Docker Desktop、NeovideなどのGUIアプリも導入します。LinuxではcaskとWezTerm設定を適用しません。
+
+## インストール前の注意
+
+インストールすると、次の変更が行われます。
+
+- Homebrewがない場合は、公式インストーラーでHomebrewを導入します。
+- chezmoiからホームディレクトリへ設定ファイルを適用します。
+- Brewfileに定義されたパッケージを導入します。
+- zinit、TPM、lazy.nvimをそれぞれのデータディレクトリへcloneします。
+- `~/.ssh/id_ed25519_github` がなければ、パスフレーズなしのGitHub用SSH鍵を作成します。
+- GitHub CLIがログイン済みの場合は、作成した公開鍵をGitHubへ登録します。
+
+既存のchezmoi sourceが `~/.local/share/chezmoi` にある場合、
+インストーラーはそのsourceに対して `chezmoi update --apply` を実行します。
+別のdotfilesをchezmoiで管理している環境では、実行前にsourceを確認してください。
+
 ## クイックスタート
 
-すべてのセットアップは `install.sh` 1 本で完了します。Homebrew が無い環境でも自動導入され、その後 chezmoi を経由して dotfiles 全体を適用します。
-
 ```bash
-curl -fsSL https://raw.githubusercontent.com/hidetoshing/dotfiles/master/install.sh | bash
+curl -fsSL \
+  https://raw.githubusercontent.com/hidetoshing/dotfiles/master/install.sh | bash
 ```
 
-### このコマンドが行うこと
+インストーラーは次の順序で処理します。
 
-1. **Homebrew の導入**
-   - macOS: `/opt/homebrew` 優先
-   - Linux: `/home/linuxbrew/.linuxbrew`
-2. **chezmoi の導入** (`brew install chezmoi`)
-3. **chezmoi init/apply** (`chezmoi init --apply hidetoshing`) で `home/` 以下のテンプレートを展開
-4. **run_once / run_onchange スクリプト**
-   - zinit / TPM / lazy.nvim を自動クローン
-   - `brew bundle` ＋ `brew bundle --file=Brewfile.darwin` (macOS 時)
-   - `mise install` で runtimes を管理
-   - GitHub 用 SSH 鍵 (`~/.ssh/id_ed25519_github`) を初回だけ作成し、`gh` ログイン済みなら GitHub に公開鍵を追加
-   - fzf のキーバインド／補完を `brew --prefix` 配下から再構成
+1. OSを判定し、必要であればHomebrewを導入する
+2. chezmoiをHomebrewで導入する
+3. 新規環境では `chezmoi init --apply hidetoshing` を実行する
+4. 既存環境では `chezmoi update --apply` を実行する
+5. chezmoiのスクリプトからパッケージや関連ツールをセットアップする
 
-## レポジトリアーキテクチャ
+miseによるランタイム導入やGitHubへの公開鍵登録など、前提条件を満たさない処理はエラーにせずスキップされる場合があります。詳細は[インストール仕様](docs/installation.md)を参照してください。
 
-| ディレクトリ              | 役割                                                                              |
-| ------------------------- | --------------------------------------------------------------------------------- |
-| `Brewfile`                | macOS / Linux 共通の CLI ツール (gh, ripgrep, mise など)                          |
-| `Brewfile.darwin`         | macOS 専用の cask / GUI (wezterm 等)                                              |
-| `mise.toml`               | `node = "lts"`, `python = "3.11"` などランタイム定義                              |
-| `.chezmoiroot`            | `home/` を source ルートとして扱わせ、初回 `chezmoi apply` から全 dotfiles を適用 |
-| `home/.chezmoi.toml.tmpl` | OS 判定フラグ (`.data.is_darwin` など) を提供し、テンプレート側の条件分岐に活用   |
-| `home/`                   | 実際の dotfiles (`home/dot_config/...`) と run_once/run_onchange スクリプト       |
+## インストール後の確認
 
-## OS ごとの挙動
+新しいシェルを起動して、主要ツールを確認します。
 
-- **共通**: `install.sh` で Homebrew → chezmoi → `Brewfile` → `mise` を順番に適用
-- **macOS だけ**: `Brewfile.darwin` を追加で `brew bundle` し、GUI アプリや cask (wezterm など) を導入
-- **Linux だけ**: Homebrew は `/home/linuxbrew/.linuxbrew` に展開され、cask 部分はスキップ
+```bash
+chezmoi --version
+git --version
+nvim --version
+tmux -V
+```
 
-## GitHub SSH 鍵
+GitHubへのSSH鍵登録がスキップされた場合は、`gh auth login` 後にインストール時のログに表示されたコマンドを実行してください。
 
-- 初回 `chezmoi apply` 後に `run_once_after_30_setup-github-ssh-key.sh.tmpl` が動作し、`~/.ssh/id_ed25519_github` が無ければ ed25519 鍵を作成します。
-- `ssh-agent` が使えるセッションでは作成済み鍵を agent に追加します。
-- `gh auth login` 済みの場合は `gh ssh-key add` で公開鍵を GitHub に追加します。未ログインの場合は処理を止めず、後から実行するコマンドをログに表示します。
+## 設定を更新する
 
-## mise ランタイム管理
+リモートの変更を取得して適用するには、次のいずれかを実行します。
 
-- `mise.toml` に `node = "lts"`, `python = "latest"` を定義
-- chezmoi の run_onchange スクリプトが `mise install` を実行（`CHEZMOI_SKIP_MISE_INSTALL=1` で一時スキップ可能）
-- ランタイムのバージョン固定や追加は `mise.toml` を編集し `chezmoi apply` を再実行するだけ
-- `~/.config/mise/config.toml` で既存 `.venv` を自動有効化し、`pyenv` の init には依存しない運用に統一
-- `pyenv` 依存プロジェクト向けに `source ~/.config/shell/pyenv.sh` を用意し、必要なセッションだけ `pyenv` / `pyenv-virtualenv` を有効化できる
+```bash
+chezmoi update --apply
+```
 
-## 各種設定 (home/dot_config/)
+```bash
+mise run up
+```
 
-- **shell / zsh**: 共通の環境変数と PATH は `~/.config/sh/env` に集約し、`~/.zshenv` / `~/.profile` / `~/.bash_profile` から読み込む。zsh 側の `~/.config/zsh/.zshrc` と `~/.config/zsh/.zprofile` は prompt・補完・plugin など shell 固有の初期化に集中させる。zinit は `$XDG_DATA_HOME/zinit` 配下へ run_once スクリプトで自動クローンされる。
-- **tmux**: `~/.config/tmux/tmux.conf` を展開し、TPM を run_once で自動クローン。leader は `<C-t>`。
-- **git**: `~/.config/git/config` と `ignore` を適用。エイリアスや `ghq.root` などを統合管理。
-- **starship**: `~/.config/starship.toml` を展開し、左側がリポジトリ、右側がランタイム／所要時間を表示。
-- **neovim**: `lazy.nvim` ベースの Lua 構成。`run_once_install-lazy-nvim.sh.tmpl` が lazy.nvim を所定のパスに展開し、`home/dot_config/nvim/**` を適用。
-  plugin 定義は `lua/plugins/{ui,editor,coding,navigation,git,automation,integrations}/` の責務単位で整理し、LSP・補完・診断・検索・UI を分けて保守しやすくしています。
-  `mason-lspconfig.nvim` で `python / lua / shell(zsh, bash) / html / JavaScript / React / Vue / Docker / Go / Rust / Markdown / Makefile / GitHub Copilot` 向けの代表的な LSP を初回起動時から自動導入します。
-  `conform.nvim` と `nvim-lint` で上記言語向けの Formatter / Linter も連携し、CLI ツールは Mason から自動導入します。
-  保存時の自動フォーマットは既定で無効化しており、必要な場合は `:FormatEnable` / `:FormatDisable` (`!` 付きでバッファローカル) と `:Format` で手動制御できます。
-- **fzf**: `run_onchange_install-fzf.sh.tmpl` が `$(brew --prefix)/opt/fzf/install` を叩き、zsh/tmux 用キーバインドと補完をセットアップ。
+適用前に差分だけを確認する場合は、次を実行します。
+
+```bash
+chezmoi diff
+```
+
+miseが利用可能な場合、chezmoiのパッケージ処理は `mise.toml` に定義されたランタイムを導入します。一時的にスキップするには、次のように適用します。
+
+```bash
+CHEZMOI_SKIP_MISE_INSTALL=1 chezmoi apply
+```
+
+## ローカル固有の設定
+
+管理対象の設定を上書きせずに端末固有の設定を追加できます。
+
+- `~/.zprofile`: zshログイン時のローカル設定
+- `~/.zshrc`: zsh対話起動時のローカル設定
+- `~/.zshalias`: ローカルのzshエイリアス
+
+これらは管理対象の共通設定から、存在する場合だけ読み込まれます。
+
+## ドキュメント
+
+- [インストール・更新仕様](docs/installation.md)
+- [リポジトリアーキテクチャ](docs/architecture.md)
+- [各設定の仕様](docs/configuration.md)
+- [Neovim設定](docs/neovim.md)
+- [開発・検証ガイド](docs/development.md)
+
+## ライセンス
+
+[MIT License](LICENSE)
