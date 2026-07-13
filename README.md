@@ -22,7 +22,7 @@ macOSではCLIに加えてWezTerm、Docker Desktop、NeovideなどのGUIアプ�
 - Brewfileに定義されたパッケージを導入します。
 - zinit、TPM、lazy.nvimをそれぞれのデータディレクトリへcloneします。
 - `~/.ssh/id_ed25519_github` がなければ、パスフレーズなしのGitHub用SSH鍵を作成します。
-- GitHub CLIがログイン済みの場合は、作成した公開鍵をGitHubへ登録します。
+- GitHub CLIでGitHubへログインしてから、作成した公開鍵をGitHubへ登録します。
 
 既存のchezmoi sourceが `~/.local/share/chezmoi` にある場合、
 インストーラーはそのsourceに対して `chezmoi update --apply` を実行します。
@@ -38,12 +38,14 @@ curl -fsSL \
 インストーラーは次の順序で処理します。
 
 1. OSを判定し、必要であればHomebrewを導入する
-2. chezmoiをHomebrewで導入する
-3. 新規環境では `chezmoi init --apply hidetoshing` を実行する
-4. 既存環境では `chezmoi update --apply` を実行する
-5. chezmoiのスクリプトからパッケージや関連ツールをセットアップする
+2. `chezmoi`、`mise`、`gh` コマンドをHomebrewで導入する
+3. GitHub CLIが未ログインなら `gh auth login` を実行する
+4. 新規環境では `chezmoi init --apply hidetoshing` を実行する
+5. 既存環境では `chezmoi update --apply` を実行する
+6. chezmoiのスクリプトからパッケージや関連ツールをセットアップする
+7. `mise.toml` に定義されたNode.jsとPythonを `mise install` で導入する
 
-miseによるランタイム導入やGitHubへの公開鍵登録など、前提条件を満たさない処理はエラーにせずスキップされる場合があります。詳細は[インストール仕様](docs/installation.md)を参照してください。
+GitHub CLIのログインには対話可能な端末が必要です。非対話環境では、先に `gh auth login -h github.com -p ssh --skip-ssh-key` を実行してください。詳細は[インストール仕様](docs/installation.md)を参照してください。
 
 ## インストール後の確認
 
@@ -56,7 +58,7 @@ nvim --version
 tmux -V
 ```
 
-GitHubへのSSH鍵登録がスキップされた場合は、`gh auth login` 後にインストール時のログに表示されたコマンドを実行してください。
+GitHubに `~/.ssh/id_ed25519_github.pub` が登録されていることも確認してください。
 
 ## 設定を更新する
 
@@ -76,7 +78,7 @@ mise run up
 chezmoi diff
 ```
 
-miseが利用可能な場合、chezmoiのパッケージ処理は `mise.toml` に定義されたランタイムを導入します。一時的にスキップするには、次のように適用します。
+chezmoiのパッケージ処理は `mise.toml` に定義されたランタイムを導入します。一時的にスキップするには、次のように適用します。
 
 ```bash
 CHEZMOI_SKIP_MISE_INSTALL=1 chezmoi apply

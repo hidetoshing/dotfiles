@@ -7,10 +7,12 @@
 ```text
 install.sh
   └─ Homebrew
+      ├─ chezmoi、mise、ghを準備
+      ├─ gh auth login（未ログインの場合）
       └─ chezmoi init/update --apply
           ├─ home/ の設定をホームディレクトリへ展開
           ├─ Brewfileからパッケージを導入
-          ├─ 利用可能な場合はmise install
+          ├─ mise.tomlに定義されたランタイムを導入
           └─ run_once/run_onchangeで周辺ツールを準備
 ```
 
@@ -60,7 +62,7 @@ install.sh
 
 スクリプトやテンプレート入力が変更されたときに再実行します。パッケージ導入とfzfセットアップに使っています。
 
-パッケージ処理には `before_20` プレフィックスを付け、周辺ツールが必要とするコマンドを先に用意します。SSH鍵処理には `after_30` を付けています。
+`install.sh` はchezmoi適用前にchezmoi、mise、ghとGitHub認証を準備します。パッケージ処理には `before_20` プレフィックスを付け、その他の周辺ツールが必要とするコマンドを先に用意します。SSH鍵処理には `after_30` を付けています。
 
 ## OS分岐
 
@@ -88,7 +90,7 @@ OSで直接使用するCLI、エディタ、ターミナル、Docker関連ツー
 `home/dot_config/mise/config.toml` は、利用者のグローバルmise設定です。
 両者は用途が異なります。
 
-現状のパッケージスクリプトは、miseコマンドが既に利用可能な場合だけ `mise install` を実行します。
+`install.sh` は初回セットアップの前提としてmiseコマンドを導入します。Brewfileにもmiseを定義し、以後のパッケージ同期対象とします。パッケージスクリプトは、miseコマンドが利用可能な場合に `mise install` を実行します。
 
 ### アプリケーションbootstrap
 

@@ -71,16 +71,45 @@ ensure_brew() {
   eval "$("$brew_bin" shellenv)"
 }
 
+ensure_command() {
+  local command_name=$1
+  local formula=$2
+
+  if command -v "$command_name" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  log "${command_name} を brew でインストールします"
+  brew install "$formula"
+}
+
+ensure_github_auth() {
+  if gh auth status -h github.com >/dev/null 2>&1; then
+    log "GitHub CLI はログイン済みです"
+    return 0
+  fi
+
+  if ! (: </dev/tty) 2>/dev/null; then
+    die "GitHub CLIが未ログインです。対話可能な端末で gh auth login -h github.com -p ssh --skip-ssh-key を実行してから、再度セットアップしてください"
+  fi
+
+  log "GitHub CLIでgithub.comへログインします"
+  gh auth login \
+    --hostname github.com \
+    --git-protocol ssh \
+    --skip-ssh-key \
+    --web </dev/tty
+
+  gh auth status -h github.com >/dev/null 2>&1 ||
+    die "GitHub CLIのログインを確認できませんでした"
+}
+
 main() {
   ensure_brew
-
-  local brew_prefix
-  brew_prefix="$(brew --prefix)"
-
-  if ! command -v chezmoi >/dev/null 2>&1; then
-    log "chezmoi を brew でインストールします"
-    brew install chezmoi
-  fi
+  ensure_command chezmoi chezmoi
+  ensure_command mise mise
+  ensure_command gh gh
+  ensure_github_auth
 
   if [ -d "${HOME}/.local/share/chezmoi" ]; then
     log "既存の chezmoi リポジトリを update --apply します"

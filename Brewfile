@@ -19,6 +19,7 @@ brew "wget"
 
 # --- dotfiles ---
 brew "chezmoi"
+brew "mise"
 
 # --- Editor / Shell ---
 brew "neovim"
