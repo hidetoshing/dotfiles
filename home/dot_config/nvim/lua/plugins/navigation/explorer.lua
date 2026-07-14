@@ -12,6 +12,35 @@ return {
             "https://github.com/nvim-tree/nvim-web-devicons", -- optional, but recommended
         },
         cmd = { "Neotree" },
+        init = function()
+            local reading_stdin = false
+
+            vim.api.nvim_create_autocmd("StdinReadPre", {
+                callback = function()
+                    reading_stdin = true
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("VimEnter", {
+                once = true,
+                callback = function()
+                    local temporary_editor_files = {
+                        COMMIT_EDITMSG = true,
+                        MERGE_MSG = true,
+                        SQUASH_MSG = true,
+                        TAG_EDITMSG = true,
+                        ["git-rebase-todo"] = true,
+                    }
+                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+
+                    if reading_stdin or vim.o.diff or temporary_editor_files[filename] then
+                        return
+                    end
+
+                    vim.cmd("Neotree source=filesystem reveal=true position=left")
+                end,
+            })
+        end,
         keys = {
             { "<leader>ee", "<cmd>Neotree source=filesystem reveal=true position=left<CR>", desc = "File Tree" },
             { "<leader>ef", "<cmd>Neotree float<CR>", desc = "Float File Tree" },
