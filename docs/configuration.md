@@ -134,10 +134,16 @@ TPM本体は `~/.config/tmux/plugins/tpm` に導入します。プラグイン�
 
 設定元は `home/dot_config/herdr/config.toml`、展開先は `~/.config/herdr/config.toml` です。
 
-- prefixは既存のtmux設定と同じ `C-t`
-- prefix以外のキーバインド、テーマ、UI、更新設定はHerdrの既定値を使用
+- themeは `tokyo-night`
+- prefixはHerdrの既定値と同じ `C-b`
+- `prefix + Up` / `prefix + Down` で前後のworkspaceへ移動
+- `prefix + Left` / `prefix + Right` で前後のtabへ移動
+- その他のキーバインドはHerdrの既定値を使用
+- agent panelは対応の必要度で並べ、pane borderにagent labelを表示
+- バックグラウンドのagentが完了または入力待ちになった場合、2秒後にターミナル通知を送信
+- 通知音は無効
 
-移行期間中はtmuxとHerdrを併存させます。Herdrは新しい設定項目を必要になったときだけ追加し、既定値との差分を最小限に保ちます。Codexなどのエージェント統合は各ツールのユーザー設定を書き換えるため、このdotfilesでは自動導入しません。
+移行期間中はtmuxとHerdrを併存させます。Herdrは必要な設定項目だけを追加し、その他は既定値を使用します。Codexなどのエージェント統合は各ツールのユーザー設定を書き換えるため、このdotfilesでは自動導入しません。
 
 ## starship
 

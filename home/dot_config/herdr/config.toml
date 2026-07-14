@@ -1,2 +1,20 @@
+[theme]
+name = "tokyo-night"
+
 [keys]
-prefix = "ctrl+t"
+prefix = "ctrl+b"
+previous_workspace = "prefix+up"
+next_workspace = "prefix+down"
+previous_tab = "prefix+left"
+next_tab = "prefix+right"
+
+[ui]
+agent_panel_sort = "priority"
+show_agent_labels_on_pane_borders = true
+
+[ui.toast]
+delivery = "terminal"
+delay_seconds = 2
+
+[ui.sound]
+enabled = false
