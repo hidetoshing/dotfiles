@@ -1,6 +1,12 @@
 {{- $is_darwin := eq .chezmoi.os "darwin" -}}
 {{- $is_linux := eq .chezmoi.os "linux" -}}
+{{- $git_name := promptStringOnce . "git.name" "Git user.name" -}}
+{{- $git_email := promptStringOnce . "git.email" "Git user.email" -}}
 
 [data]
   is_darwin = {{ $is_darwin }}
   is_linux = {{ $is_linux }}
+
+[data.git]
+  name = {{ $git_name | quote }}
+  email = {{ $git_email | quote }}

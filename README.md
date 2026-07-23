@@ -25,7 +25,7 @@ macOSではCLIに加えてWezTerm、Docker Desktop、NeovideなどのGUIアプ�
 - GitHub CLIでGitHubへログインしてから、作成した公開鍵をGitHubへ登録します。
 
 既存のchezmoi sourceが `~/.local/share/chezmoi` にある場合、
-インストーラーはそのsourceに対して `chezmoi update --apply` を実行します。
+インストーラーはそのsourceに対して `chezmoi update --init --apply` を実行します。
 別のdotfilesをchezmoiで管理している環境では、実行前にsourceを確認してください。
 
 ## クイックスタート
@@ -40,12 +40,12 @@ curl -fsSL \
 1. OSを判定し、必要であればHomebrewを導入する
 2. `chezmoi`、`mise`、`gh` コマンドをHomebrewで導入する
 3. GitHub CLIが未ログインなら `gh auth login` を実行する
-4. 新規環境では `chezmoi init --apply hidetoshing` を実行する
-5. 既存環境では `chezmoi update --apply` を実行する
+4. 新規環境ではGitのユーザー名とメールアドレスを入力し、`chezmoi init --apply hidetoshing` を実行する
+5. 既存環境では `chezmoi update --init --apply` を実行し、未設定の場合はGitのユーザー名とメールアドレスを入力する
 6. chezmoiのスクリプトからパッケージや関連ツールをセットアップする
 7. `mise.toml` に定義されたNode.jsとPythonを `mise install` で導入する
 
-GitHub CLIのログインには対話可能な端末が必要です。非対話環境では、先に `gh auth login -h github.com -p ssh --skip-ssh-key` を実行してください。詳細は[インストール仕様](docs/installation.md)を参照してください。
+GitHub CLIのログインとGitユーザー情報の初回入力には、対話可能な端末が必要です。非対話環境だけでは初期設定を完了できないため、対象マシンの対話可能な端末から実行してください。詳細は[インストール仕様](docs/installation.md)を参照してください。
 
 ## インストール後の確認
 
@@ -66,7 +66,7 @@ GitHubに `~/.ssh/id_ed25519_github.pub` が登録されていることも確認
 リモートの変更を取得して適用するには、次のいずれかを実行します。
 
 ```bash
-chezmoi update --apply
+chezmoi update --init --apply
 ```
 
 ```bash
@@ -78,6 +78,10 @@ mise run up
 ```bash
 chezmoi diff
 ```
+
+Gitのユーザー名とメールアドレスは各端末のchezmoi設定に保存されます。
+値を変更する場合は `chezmoi init --prompt` を実行して再入力してから、
+`chezmoi apply` を実行してください。
 
 chezmoiのパッケージ処理は `mise.toml` に定義されたランタイムを導入します。一時的にスキップするには、次のように適用します。
 

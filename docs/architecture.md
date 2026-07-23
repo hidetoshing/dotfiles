@@ -23,7 +23,7 @@ install.sh
 | `install.sh` | Homebrewとchezmoiを準備し、初期化または更新を実行 |
 | `.chezmoiroot` | chezmoiのsource rootを `home/` に設定 |
 | `home/` | ホームディレクトリへ展開する設定と実行スクリプト |
-| `home/.chezmoi.toml.tmpl` | `is_darwin`、`is_linux` のテンプレートデータを定義 |
+| `home/.chezmoi.toml.tmpl` | OS判定と端末ごとのGitユーザー情報をテンプレートデータとして定義 |
 | `home/.chezmoiignore` | OS別の除外と生成キャッシュの除外を定義 |
 | `Brewfile` | macOS/Linux共通のHomebrewパッケージ |
 | `Brewfile.darwin` | macOS専用のcask |
@@ -39,7 +39,7 @@ install.sh
 | source | 展開先 |
 | --- | --- |
 | `home/dot_zshenv` | `~/.zshenv` |
-| `home/dot_config/git/config` | `~/.config/git/config` |
+| `home/dot_config/git/config.tmpl` | `~/.config/git/config` |
 | `home/dot_config/nvim/` | `~/.config/nvim/` |
 | `home/run_once_*.sh.tmpl` | テンプレート展開後に初回実行 |
 | `home/run_onchange_*.sh.tmpl` | 内容の変更時に実行 |
@@ -70,6 +70,14 @@ install.sh
 
 - `.is_darwin`
 - `.is_linux`
+
+加えて初回の設定生成時にGitのユーザー情報を入力し、端末ごとのchezmoi設定へ保存します。
+
+- `.git.name`
+- `.git.email`
+
+これらは `home/dot_config/git/config.tmpl` の展開に使われ、
+会社用PCと自宅PCの値をリポジトリへ含めずに切り替えます。
 
 パッケージ導入テンプレートは `.chezmoi.os` を直接参照して、
 macOS専用Brewfileを切り替えます。`.chezmoiignore` はmacOS以外で

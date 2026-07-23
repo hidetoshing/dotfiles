@@ -49,7 +49,7 @@ Homebrewがない場合は、公式インストールスクリプトを `NONINTE
 gh auth login -h github.com -p ssh --skip-ssh-key --web
 ```
 
-対話可能な端末がない場合は、復旧コマンドを表示してセットアップを中断します。別の対話可能な端末で次を実行してから、セットアップを再実行してください。
+対話可能な端末がない場合は、復旧コマンドを表示してセットアップを中断します。対象マシンの対話可能な端末で次を実行してから、セットアップを再実行してください。
 
 ```bash
 gh auth login -h github.com -p ssh --skip-ssh-key
@@ -57,8 +57,13 @@ gh auth login -h github.com -p ssh --skip-ssh-key
 
 ### 4. sourceの初期化または更新
 
-- `~/.local/share/chezmoi` が存在する場合: `chezmoi update --apply`
+- `~/.local/share/chezmoi` が存在する場合: `chezmoi update --init --apply`
 - 存在しない場合: `chezmoi init --apply hidetoshing`
+
+初回の設定生成時に、Gitの `user.name` と `user.email` を入力します。
+入力値は端末ごとのchezmoi設定へ保存され、Git設定テンプレートの展開に使われます。
+既存のchezmoi設定に値がない場合は、`update --init` による設定再生成時に入力します。
+この入力には対話可能な端末が必要です。
 
 既存ディレクトリがこのリポジトリを指しているかは判定しません。
 別のchezmoi sourceを利用している場合は、インストール前に
@@ -117,13 +122,20 @@ Homebrewまたはfzfのインストーラーが見つからない場合はスキ
 通常の更新は次のコマンドで行います。
 
 ```bash
-chezmoi update --apply
+chezmoi update --init --apply
 ```
 
 `mise.toml` には同じ処理を実行する `up` タスクがあります。
 
 ```bash
 mise run up
+```
+
+Gitのユーザー名またはメールアドレスを変更する場合は、設定ファイルを再生成してから適用します。
+
+```bash
+chezmoi init --prompt
+chezmoi apply
 ```
 
 適用前の差分確認には `chezmoi diff` を使用します。

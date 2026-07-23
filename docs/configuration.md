@@ -91,7 +91,7 @@ source ~/.config/shell/pyenv.sh
 
 ## Git
 
-設定元は `home/dot_config/git/config` と `home/dot_config/git/ignore`、
+設定元は `home/dot_config/git/config.tmpl` と `home/dot_config/git/ignore`、
 展開先は `~/.config/git/` です。
 
 主な方針は次のとおりです。
@@ -104,6 +104,10 @@ source ~/.config/shell/pyenv.sh
 - conflict markerは `zdiff3`
 - ghq rootは `~/projects` と `~/src`
 
+`user.name` と `user.email` は `home/.chezmoi.toml.tmpl` の初期化時に入力し、
+端末ごとのchezmoi設定から展開します。会社用PCと自宅PCで異なる値を入力でき、
+端末固有の値はdotfilesリポジトリには保存されません。
+
 設定にはブランチ削除、pull、push、ブラウザ起動など副作用を伴うエイリアスも含まれます。使用前に `git aliases` で内容を確認してください。
 
 ### セキュリティ上の注意
@@ -112,7 +116,6 @@ source ~/.config/shell/pyenv.sh
 
 - `[http] sslVerify = false`
 - credential helperとして `osxkeychain` と `store`
-- 固定のuser nameとemail
 
 TLS検証の無効化と平文保存になり得るcredential helperはセキュリティリスクがあります。また、`osxkeychain` はmacOS固有です。この文書は現状を説明するものであり、これらの設定を一般利用に推奨するものではありません。
 

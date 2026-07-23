@@ -5,4 +5,4 @@ python = "latest"
 
 [tasks.up]
 description = "Apply all configuration changes."
-run = "chezmoi update --apply"
+run = "chezmoi update --init --apply"

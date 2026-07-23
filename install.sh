@@ -112,8 +112,8 @@ main() {
   ensure_github_auth
 
   if [ -d "${HOME}/.local/share/chezmoi" ]; then
-    log "既存の chezmoi リポジトリを update --apply します"
-    chezmoi update --apply
+    log "既存の chezmoi リポジトリを update --init --apply します"
+    chezmoi update --init --apply
   else
     log "chezmoi init --apply hidetoshing を実行します"
     chezmoi init --apply hidetoshing

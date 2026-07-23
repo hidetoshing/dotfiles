@@ -164,8 +164,8 @@
 
 
 [user]
-    name = hidetoshing
-    email = hidetoshing@gmail.com
+    name = {{ .git.name | quote }}
+    email = {{ .git.email | quote }}
 
 
 [http]
