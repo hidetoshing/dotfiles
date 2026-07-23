@@ -37,7 +37,10 @@ return {
                         return
                     end
 
-                    vim.cmd("Neotree source=filesystem reveal=true position=left")
+                    local opened_with_file = vim.fn.argc() > 0 and vim.fn.isdirectory(vim.fn.argv(0)) == 0
+                    local action = opened_with_file and "show " or ""
+
+                    vim.cmd("Neotree " .. action .. "source=filesystem reveal=true position=left")
                 end,
             })
         end,
