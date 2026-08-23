@@ -42,6 +42,83 @@ home/dot_config/nvim/
 
 Obsidian関連のプラグインはmacOSでのみ読み込みます。その他のプラグインカテゴリは共通です。
 
+## AIエージェント
+
+`agentic.nvim`をACPクライアントとして使用します。既定では`codex-acp`が
+実行可能な場合はCodexを選択し、それ以外ではClaude Agent ACPを選択します。
+
+端末ごとに使用可能なエージェントが異なる場合は、chezmoiで管理しない次の
+ローカル設定ファイルを作成します。
+
+```text
+~/.config/nvim/local/agentic.lua
+```
+
+このファイルは`agentic.nvim`の部分設定をLua tableとして返します。共通設定へ
+deep mergeされるため、端末固有のproviderだけを指定できます。
+
+```lua
+return {
+    provider = "opencode-acp",
+}
+```
+
+ファイルが存在しない場合は既定のprovider選択を使用します。ファイルの読み込み、
+実行、または戻り値に問題がある場合は警告を表示し、既定の設定へフォールバック
+します。API keyなどの秘密情報はファイルへ直接記述せず、必要な場合は環境変数を
+参照してください。
+
+### Ollamaを使用する場合
+
+`agentic.nvim`からOllamaを利用する場合は、ACP providerとしてOpenCodeを介します。
+OllamaとOpenCodeは端末固有の依存関係とし、共通のBrewfileでは導入しません。
+
+```bash
+ollama --version
+ollama list
+opencode --version
+```
+
+OpenCodeを導入していない端末では、公式の導入方法に従ってインストールします。
+Homebrewを使用する場合は次のコマンドで導入できます。
+
+```bash
+brew install opencode
+```
+
+Ollama providerと既定モデルは`~/.config/opencode/opencode.json`で設定します。
+`<ollama-model-id>`は`ollama list`に表示される、tool callingに対応したモデルIDへ
+置き換えてください。
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/<ollama-model-id>",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "<ollama-model-id>": {
+          "name": "Ollama local model"
+        }
+      }
+    }
+  }
+}
+```
+
+コーディングエージェントは長いcontextを必要とします。モデルが対応する範囲で
+Ollamaのcontext lengthを十分に確保してください。設定後はNeovimを再起動し、
+次のコマンドでproviderと実行ファイルを確認します。
+
+```vim
+:checkhealth agentic
+```
+
 ## LSP
 
 Masonとmason-lspconfigで次の代表的なserverを導入・有効化します。
