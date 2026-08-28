@@ -10,7 +10,7 @@
 
 1. `git status --short` で既存の作業差分を確認する
 2. 対象のsourceと関連文書を確認する
-3. `home/`、Brewfile、mise設定などの正本を変更する
+3. `home/`、mise設定などの正本を変更する
 4. 変更種別に応じた静的検証を行う
 5. `chezmoi diff` で展開結果を確認する
 6. 安全な場合だけdry-runまたは実適用を行う
@@ -39,7 +39,7 @@ chezmoi apply --dry-run --verbose
 
 macOS固有の変更では次を確認します。
 
-- `Brewfile.darwin` にのみ追加すべき依存か
+- `mise.toml` で `os = "macos"` を指定すべき依存か
 - `home/.chezmoiignore` でLinuxから除外すべきか
 - テンプレート内で `.chezmoi.os` またはデータ変数を使うべきか
 
@@ -71,30 +71,22 @@ shellcheck install.sh
 - macOS/Linuxのコマンド差
 - 外部サービスや認証情報への副作用
 
-## Brewfile
-
-Brewfileを変更した場合、利用可能であれば対象ファイルを確認します。
-
-```bash
-brew bundle check --file=Brewfile
-```
-
-macOSでは次も対象です。
-
-```bash
-brew bundle check --file=Brewfile.darwin
-```
-
-`brew bundle check` は未導入パッケージがあると失敗するため、構文エラーと環境差を区別して報告してください。
-
 ## mise
 
 リポジトリ直下の `mise.toml` と、ホームへ展開する `home/dot_config/mise/config.toml` は用途が異なります。
 
-- 直下: dotfiles適用中に使うランタイムとリポジトリタスク
+- 直下: dotfiles適用中に使うHomebrewパッケージ、ランタイム、リポジトリタスク
 - `home/dot_config/mise/config.toml`: 利用者のグローバル設定
 
-変更時は、どちらへ置く設定かを確認し、利用可能であればmiseが解決した設定を確認してください。
+変更時は、どちらへ置く設定かを確認し、利用可能であれば次を実行します。
+
+```bash
+mise bootstrap plan
+mise bootstrap --only packages,tools --dry-run
+mise tasks validate
+```
+
+`mise bootstrap` の実適用はパッケージやアプリを導入するため、検証目的ではdry-runに留めてください。
 
 ## Neovim
 

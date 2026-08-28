@@ -38,9 +38,8 @@ Node.js、npm、Rust、各種データベースクライアントなどの履歴
 PATH追加処理は、存在するディレクトリだけを重複しないように先頭へ追加します。Homebrewは次の順に探索します。
 
 1. `/opt/homebrew/bin/brew`
-2. `/usr/local/bin/brew`
-3. `/home/linuxbrew/.linuxbrew/bin/brew`
-4. 現在の `PATH`
+2. `/home/linuxbrew/.linuxbrew/bin/brew`
+3. 現在の `PATH`
 
 Homebrewが見つかった場合は、OpenSSL、GNU coreutils、MySQL Clientのパスも利用可能な範囲で追加します。
 
@@ -170,16 +169,16 @@ Homebrewのfzfインストーラーを使用し、zsh/tmux向けキーバイン�
 - 設定変更の自動再読み込みを有効化
 - タブ数が1つの場合はタブバーを非表示
 
-フォントはmacOS用Brewfileの `font-moralerspace` に依存します。
+フォントは `mise.toml` のmacOS用 `brew-cask:font-moralerspace` に依存します。
 
 ## パッケージ管理
 
 ### 共通
 
-`Brewfile` はGit/gh、検索・移動系CLI、基本ユーティリティ、chezmoi、Neovim、tmux、Herdr、starship、Docker CLIなどを管理します。
+`mise.toml` の `[bootstrap.packages]` は、`brew:` managerを通じてGit/gh、検索・移動系CLI、基本ユーティリティ、chezmoi、Neovim、tmux、Herdr、starship、Docker CLIなどを管理します。
 
 ### macOS
 
-`Brewfile.darwin` はWezTerm、Docker Desktop、Moralerspaceフォント、Neovideを管理します。
+同じセクションの `brew-cask:` エントリは、`os = "macos"` の条件付きでWezTerm、Docker Desktop、Moralerspaceフォント、Neovideを管理します。
 
 ツールを設定から新たに参照するときは、対象OSのパッケージ定義にも導入方法を追加してください。

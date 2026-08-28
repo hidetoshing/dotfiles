@@ -2,32 +2,30 @@
 
 ## 概要
 
-このリポジトリは、chezmoiによるファイル展開、Homebrewによるパッケージ管理、miseによるランタイム管理を組み合わせています。
+このリポジトリは、chezmoiによるファイル展開と、mise bootstrapによるHomebrewパッケージ・ランタイム管理を組み合わせています。
 
 ```text
 install.sh
+  ├─ mise.runからmiseを準備
   └─ Homebrew
-      ├─ chezmoi、mise、ghを準備
+      ├─ chezmoi、ghを準備
       ├─ gh auth login（未ログインの場合）
       └─ chezmoi init/update --apply
+          ├─ mise bootstrapでパッケージとランタイムを収束
           ├─ home/ の設定をホームディレクトリへ展開
-          ├─ Brewfileからパッケージを導入
-          ├─ mise.tomlに定義されたランタイムを導入
-          └─ run_once/run_onchangeで周辺ツールを準備
+          └─ run_before/run_once/run_onchangeで周辺ツールを準備
 ```
 
 ## 主要ファイル
 
 | パス | 役割 |
 | --- | --- |
-| `install.sh` | Homebrewとchezmoiを準備し、初期化または更新を実行 |
+| `install.sh` | mise、Homebrew、chezmoi、ghを準備し、初期化または更新を実行 |
 | `.chezmoiroot` | chezmoiのsource rootを `home/` に設定 |
 | `home/` | ホームディレクトリへ展開する設定と実行スクリプト |
 | `home/.chezmoi.toml.tmpl` | OS判定と端末ごとのGitユーザー情報をテンプレートデータとして定義 |
 | `home/.chezmoiignore` | OS別の除外と生成キャッシュの除外を定義 |
-| `Brewfile` | macOS/Linux共通のHomebrewパッケージ |
-| `Brewfile.darwin` | macOS専用のcask |
-| `mise.toml` | リポジトリのセットアップで使うランタイムとタスク |
+| `mise.toml` | Homebrew formula、macOS cask、ランタイム、リポジトリタスク |
 | `docs/` | 実装仕様と保守手順 |
 
 ## chezmoiのマッピング
@@ -41,6 +39,7 @@ install.sh
 | `home/dot_zshenv` | `~/.zshenv` |
 | `home/dot_config/git/config.tmpl` | `~/.config/git/config` |
 | `home/dot_config/nvim/` | `~/.config/nvim/` |
+| `home/run_before_*.sh.tmpl` | 各適用のファイル展開前に実行 |
 | `home/run_once_*.sh.tmpl` | テンプレート展開後に初回実行 |
 | `home/run_onchange_*.sh.tmpl` | 内容の変更時に実行 |
 
@@ -60,9 +59,13 @@ install.sh
 
 ### `run_onchange`
 
-スクリプトやテンプレート入力が変更されたときに再実行します。パッケージ導入とfzfセットアップに使っています。
+スクリプトやテンプレート入力が変更されたときに再実行します。fzfセットアップに使っています。
 
-`install.sh` はchezmoi適用前にchezmoi、mise、ghとGitHub認証を準備します。パッケージ処理には `before_20` プレフィックスを付け、その他の周辺ツールが必要とするコマンドを先に用意します。SSH鍵処理には `after_30` を付けています。
+### `run_before`
+
+`run_before_20_bootstrap-packages.sh.tmpl` はchezmoiを適用するたびに、ファイル展開より先に `mise bootstrap --only packages,tools` を実行します。処理は冪等で、導入済みの項目はmiseがスキップします。
+
+`install.sh` はchezmoi適用前にmise、chezmoi、ghとGitHub認証を準備します。パッケージ処理には `before_20` プレフィックスを付け、その他の周辺ツールが必要とするコマンドを先に用意します。SSH鍵処理には `after_30` を付けています。
 
 ## OS分岐
 
@@ -79,26 +82,24 @@ install.sh
 これらは `home/dot_config/git/config.tmpl` の展開に使われ、
 会社用PCと自宅PCの値をリポジトリへ含めずに切り替えます。
 
-パッケージ導入テンプレートは `.chezmoi.os` を直接参照して、
-macOS専用Brewfileを切り替えます。`.chezmoiignore` はmacOS以外で
-`dot_config/wezterm/**` を除外します。
+macOS専用パッケージは `mise.toml` の `os = "macos"` で切り替えます。
+`.chezmoiignore` はmacOS以外で `dot_config/wezterm/**` を除外します。
 
-OS固有の設定を追加するときは、Brewfile、テンプレート、ignoreのどこで分岐するかを明確にしてください。
+OS固有の設定を追加するときは、miseのOS条件、テンプレート、ignoreのどこで分岐するかを明確にしてください。
 
 ## 依存関係の責務
 
 ### Homebrew
 
-OSで直接使用するCLI、エディタ、ターミナル、Docker関連ツールを管理します。macOSのGUIアプリは `Brewfile.darwin` に分離します。
+mise bootstrapの `brew:` と `brew-cask:` managerがHomebrew互換のプレフィックスを使用します。既存のHomebrewと併存でき、`install.sh` はchezmoiとghの初期導入、fzfの補完生成にもHomebrewコマンドを使用します。
 
 ### mise
 
-リポジトリ直下の `mise.toml` は、chezmoi適用中のランタイム導入と
-`up` タスクに使われます。ホームへ展開される
+リポジトリ直下の `mise.toml` は、chezmoi適用中のHomebrew formula、macOS cask、ランタイムの導入と `up` タスクに使われます。ホームへ展開される
 `home/dot_config/mise/config.toml` は、利用者のグローバルmise設定です。
 両者は用途が異なります。
 
-`install.sh` は初回セットアップの前提としてmiseコマンドを導入します。Brewfileにもmiseを定義し、以後のパッケージ同期対象とします。パッケージスクリプトは、miseコマンドが利用可能な場合に `mise install` を実行します。
+`install.sh` は初回セットアップの前提としてmise.runから `~/.local/bin/mise` を導入します。mise自体は `[bootstrap.packages]` に含めません。パッケージスクリプトは、miseコマンドが利用可能な場合に対象をパッケージとツールへ限定して `mise bootstrap` を実行します。
 
 ### アプリケーションbootstrap
 

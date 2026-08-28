@@ -8,20 +8,20 @@
 
 `install.sh` が受け付けるOSは次のとおりです。
 
-- macOS:
-  `/opt/homebrew/bin/brew`、`/usr/local/bin/brew` の順に探索し、
-  `Brewfile.darwin` とWezTerm設定を適用します。
+- Apple Silicon搭載macOS:
+  `/opt/homebrew/bin/brew` を探索し、macOS用caskとWezTerm設定を適用します。
 - Linux:
   `/home/linuxbrew/.linuxbrew/bin/brew` を探索し、
   caskとWezTerm設定を除外します。
 
-DarwinとLinux以外では、未対応OSとしてインストールを終了します。
+Intel Mac、DarwinとLinux以外では、未対応環境としてインストールを終了します。
 
 ## 前提条件
 
 - `bash`
 - `curl`
 - `git`
+- mise.runへ接続できるネットワーク
 - Homebrewの導入に必要な権限
 - GitHubおよびHomebrewへ接続できるネットワーク
 
@@ -29,19 +29,30 @@ Homebrewがない場合は、公式インストールスクリプトを `NONINTE
 
 ## `install.sh` の処理
 
-### 1. Homebrewの確認
+### 1. miseの確認
+
+mise.runの公式インストーラーを実行し、`~/.local/bin/mise` を導入または更新します。
+既に同じバージョンがある場合は `MISE_INSTALL_SKIP_IF_EXISTS=1` により再導入を
+スキップします。インストール後は `~/.local/bin` を現在のプロセスの `PATH`
+先頭へ追加し、以降の処理ではこのmiseを使用します。
+
+既存のHomebrew版miseは自動削除しません。新しいシェルでも
+`~/.local/bin` がHomebrewのパスより優先されるため、動作確認後に不要であれば
+`brew uninstall mise` で削除できます。
+
+### 2. Homebrewの確認
 
 現在の `PATH` にある `brew` を優先し、見つからなければOS別の既定パスを
 探索します。見つからない場合はHomebrewを導入し、`brew shellenv` を
 現在のプロセスへ反映します。
 
-### 2. セットアップ用コマンドの確認
+### 3. セットアップ用コマンドの確認
 
-`chezmoi`、`mise`、`gh` がなければ、それぞれHomebrewで導入します。
+`chezmoi` と `gh` がなければ、それぞれHomebrewで導入します。
 
-ここで導入するmiseはコマンド本体です。Node.jsとPythonは、後続のchezmoi適用時に `mise install` で導入します。
+mise本体はHomebrewの管理対象に含めません。Node.jsとPythonは、後続のchezmoi適用時に `mise bootstrap` で導入します。
 
-### 3. GitHub CLIの認証
+### 4. GitHub CLIの認証
 
 `gh auth status -h github.com` でログイン状態を確認します。未ログインの場合は、SSH鍵の生成・登録を後続スクリプトに任せるため、次のコマンドでログインします。
 
@@ -55,7 +66,7 @@ gh auth login -h github.com -p ssh --skip-ssh-key --web
 gh auth login -h github.com -p ssh --skip-ssh-key
 ```
 
-### 4. sourceの初期化または更新
+### 5. sourceの初期化または更新
 
 - `~/.local/share/chezmoi` が存在する場合: `chezmoi update --init --apply`
 - 存在しない場合: `chezmoi init --apply hidetoshing`
@@ -73,13 +84,15 @@ gh auth login -h github.com -p ssh --skip-ssh-key
 
 ### パッケージ
 
-`run_onchange_before_20_install-packages.sh.tmpl` が次を実行します。
+`run_before_20_bootstrap-packages.sh.tmpl` が、chezmoiを適用するたびに次を実行します。
 
-1. `Brewfile` を使った共通パッケージの導入
-2. macOSのみ `Brewfile.darwin` を使ったGUIアプリなどの導入
-3. リポジトリの `mise.toml` を指定した `mise install`
+1. リポジトリルートと `mise.toml` の検出
+2. `~/.local/bin/mise` を優先したmiseコマンドの検出
+3. `mise bootstrap --only packages,tools --yes` によるパッケージとランタイムの収束
 
-HomebrewまたはBrewfileが見つからない場合、該当処理はログを出してスキップします。`install.sh` を経由しないchezmoi適用ではmiseがない場合もスキップします。miseの処理は `CHEZMOI_SKIP_MISE_INSTALL=1` でもスキップできます。
+`[bootstrap.packages]` にはmacOS/Linux共通のHomebrew formulaと、macOSだけを対象にしたcaskを定義します。miseまたは `mise.toml` が見つからない場合はログを出してスキップします。
+
+一時的に処理を止める場合は `CHEZMOI_SKIP_MISE_BOOTSTRAP=1` を指定します。旧変数 `CHEZMOI_SKIP_MISE_INSTALL=1` も互換オプションとして受け付けます。
 
 ### 周辺ツール
 
@@ -143,6 +156,7 @@ chezmoi apply
 ## 再実行と復旧
 
 - `run_onchange` はスクリプトまたはテンプレート入力の変更時に再実行されます。
+- `run_before` のパッケージ処理は適用のたびに実行され、導入済みの項目はmiseがスキップします。
 - `run_once` は適用履歴に記録され、通常の再適用では実行されません。
 - 周辺ツールを再導入する場合は、chezmoiの実行履歴と対象ディレクトリの状態を確認してから個別に復旧してください。
 - 適用に失敗した場合はログの最初のエラーを確認し、`chezmoi diff` で未適用差分を確認してから再実行してください。

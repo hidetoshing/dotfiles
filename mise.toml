@@ -1,7 +1,58 @@
+min_version = "2026.8.14"
+
 # Runtime versions managed via mise.
 [tools]
 node = "lts"
 python = "latest"
+
+# Host packages installed by mise bootstrap through Homebrew-compatible
+# formula and cask managers. mise itself is installed separately via mise.run.
+[bootstrap.packages]
+# VCS
+"brew:git" = "latest"
+"brew:gh" = "latest"
+"brew:ghq" = "latest"
+
+# CLI UX
+"brew:bat" = "latest"
+"brew:eza" = "latest"
+"brew:fd" = "latest"
+"brew:fzf" = "latest"
+"brew:ripgrep" = "latest"
+"brew:zoxide" = "latest"
+
+# Basic utilities
+"brew:coreutils" = "latest"
+"brew:gnu-tar" = "latest"
+"brew:gpatch" = "latest"
+"brew:wget" = "latest"
+
+# dotfiles
+"brew:chezmoi" = "latest"
+
+# Editor / Shell
+"brew:neovim" = "latest"
+"brew:tmux" = "latest"
+"brew:herdr" = "latest"
+"brew:starship" = "latest"
+
+# Git / Docker TUI
+"brew:lazygit" = "latest"
+"brew:lazydocker" = "latest"
+
+# Docker CLI
+"brew:docker" = "latest"
+"brew:docker-compose" = "latest"
+"brew:docker-buildx" = "latest"
+
+# Task runner (migration period)
+"brew:make" = "latest"
+
+# macOS applications
+"brew-cask:wezterm" = { version = "latest", os = "macos" }
+"brew-cask:docker-desktop" = { version = "latest", os = "macos" }
+"brew-cask:font-moralerspace" = { version = "latest", os = "macos" }
+"brew-cask:neovide-app" = { version = "latest", os = "macos" }
 
 [tasks.up]
 description = "Apply all configuration changes."

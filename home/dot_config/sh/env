@@ -50,7 +50,6 @@ manpath_prepend() {
 find_brew_bin() {
   for brew_bin in \
     /opt/homebrew/bin/brew \
-    /usr/local/bin/brew \
     /home/linuxbrew/.linuxbrew/bin/brew
   do
     if [ -x "$brew_bin" ]; then

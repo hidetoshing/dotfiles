@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() {
+  printf '[chezmoi-packages] %s\n' "$*"
+}
+
+find_repo_root() {
+  local source_dir=$1
+  local candidate
+
+  for candidate in "$source_dir" "$source_dir/.."; do
+    if [ -f "$candidate/mise.toml" ]; then
+      (cd "$candidate" && pwd)
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+find_mise() {
+  if [ -x "${HOME}/.local/bin/mise" ]; then
+    printf '%s\n' "${HOME}/.local/bin/mise"
+    return 0
+  fi
+
+  command -v mise 2>/dev/null
+}
+
+main() {
+  local repo_root mise_bin mise_config
+
+  if [ "${CHEZMOI_SKIP_MISE_BOOTSTRAP:-0}" = "1" ]; then
+    log "環境変数CHEZMOI_SKIP_MISE_BOOTSTRAP=1のためmise bootstrapをスキップします"
+    exit 0
+  fi
+
+  if [ "${CHEZMOI_SKIP_MISE_INSTALL:-0}" = "1" ]; then
+    log "環境変数CHEZMOI_SKIP_MISE_INSTALL=1のためmise bootstrapをスキップします（互換オプション）"
+    exit 0
+  fi
+
+  repo_root="$(find_repo_root "{{ .chezmoi.sourceDir }}")" || {
+    log "mise.tomlを含むリポジトリルートが見つからないためスキップします"
+    exit 0
+  }
+  mise_config="${repo_root}/mise.toml"
+
+  mise_bin="$(find_mise)" || {
+    log "miseが未インストールのためスキップします"
+    exit 0
+  }
+
+  log "mise bootstrap --only packages,tools (config=${mise_config})"
+  MISE_CONFIG_FILE="$mise_config" "$mise_bin" bootstrap \
+    --only packages,tools \
+    --yes
+}
+
+main "$@"

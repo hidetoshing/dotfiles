@@ -71,7 +71,7 @@ return {
 ### Ollamaを使用する場合
 
 `agentic.nvim`からOllamaを利用する場合は、ACP providerとしてOpenCodeを介します。
-OllamaとOpenCodeは端末固有の依存関係とし、共通のBrewfileでは導入しません。
+OllamaとOpenCodeは端末固有の依存関係とし、共通の `mise.toml` では導入しません。
 
 ```bash
 ollama --version

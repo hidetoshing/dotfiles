@@ -2,14 +2,14 @@
 
 macOSとLinuxの開発環境を、[chezmoi](https://www.chezmoi.io/)でセットアップ・管理するための個人用dotfilesです。
 
-HomebrewによるCLI導入、Shell、Git、tmux、Herdr、Neovimなどの設定をまとめて適用します。既存のホームディレクトリへ設定ファイルを展開するため、内容を確認した上で使用してください。
+mise bootstrapによるCLI・アプリ導入と、Shell、Git、tmux、Herdr、Neovimなどの設定をまとめて適用します。既存のホームディレクトリへ設定ファイルを展開するため、内容を確認した上で使用してください。
 
 ## 対応環境
 
-- macOS
+- Apple Silicon搭載macOS
 - Linux
 - `bash`、`curl`、`git`を実行できる環境
-- Homebrewの導入に必要な権限とネットワーク接続
+- miseとHomebrewの導入に必要な権限とネットワーク接続
 
 macOSではCLIに加えてWezTerm、Docker Desktop、NeovideなどのGUIアプリも導入します。LinuxではcaskとWezTerm設定を適用しません。
 
@@ -17,9 +17,10 @@ macOSではCLIに加えてWezTerm、Docker Desktop、NeovideなどのGUIアプ�
 
 インストールすると、次の変更が行われます。
 
+- mise.runで `~/.local/bin/mise` を導入または更新します。
 - Homebrewがない場合は、公式インストーラーでHomebrewを導入します。
 - chezmoiからホームディレクトリへ設定ファイルを適用します。
-- Brewfileに定義されたパッケージを導入します。
+- `mise.toml` に定義されたHomebrew formula、macOS cask、ランタイムを導入します。
 - zinit、TPM、lazy.nvimをそれぞれのデータディレクトリへcloneします。
 - `~/.ssh/id_ed25519_github` がなければ、パスフレーズなしのGitHub用SSH鍵を作成します。
 - GitHub CLIでGitHubへログインしてから、作成した公開鍵をGitHubへ登録します。
@@ -37,13 +38,13 @@ curl -fsSL \
 
 インストーラーは次の順序で処理します。
 
-1. OSを判定し、必要であればHomebrewを導入する
-2. `chezmoi`、`mise`、`gh` コマンドをHomebrewで導入する
-3. GitHub CLIが未ログインなら `gh auth login` を実行する
-4. 新規環境ではGitのユーザー名とメールアドレスを入力し、`chezmoi init --apply hidetoshing` を実行する
-5. 既存環境では `chezmoi update --init --apply` を実行し、未設定の場合はGitのユーザー名とメールアドレスを入力する
-6. chezmoiのスクリプトからパッケージや関連ツールをセットアップする
-7. `mise.toml` に定義されたNode.jsとPythonを `mise install` で導入する
+1. OSとアーキテクチャを判定し、mise.runでmiseを導入または更新する
+2. 必要であればHomebrewを導入する
+3. `chezmoi` と `gh` をHomebrewで導入する
+4. GitHub CLIが未ログインなら `gh auth login` を実行する
+5. 新規環境ではGitのユーザー名とメールアドレスを入力し、`chezmoi init --apply hidetoshing` を実行する
+6. 既存環境では `chezmoi update --init --apply` を実行し、未設定の場合はGitのユーザー名とメールアドレスを入力する
+7. chezmoiのスクリプトから `mise bootstrap` を実行し、パッケージとランタイムを収束させる
 
 GitHub CLIのログインとGitユーザー情報の初回入力には、対話可能な端末が必要です。非対話環境だけでは初期設定を完了できないため、対象マシンの対話可能な端末から実行してください。詳細は[インストール仕様](docs/installation.md)を参照してください。
 
@@ -83,10 +84,10 @@ Gitのユーザー名とメールアドレスは各端末のchezmoi設定に保�
 値を変更する場合は `chezmoi init --prompt` を実行して再入力してから、
 `chezmoi apply` を実行してください。
 
-chezmoiのパッケージ処理は `mise.toml` に定義されたランタイムを導入します。一時的にスキップするには、次のように適用します。
+chezmoiは適用のたびに `mise.toml` に定義されたパッケージとランタイムを確認します。一時的にスキップするには、次のように適用します。
 
 ```bash
-CHEZMOI_SKIP_MISE_INSTALL=1 chezmoi apply
+CHEZMOI_SKIP_MISE_BOOTSTRAP=1 chezmoi apply
 ```
 
 ## ローカル固有の設定

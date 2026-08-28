@@ -13,7 +13,12 @@ die() {
 
 detect_os() {
   case "$(uname -s)" in
-    Darwin) printf 'darwin' ;;
+    Darwin)
+      if [ "$(uname -m)" != "arm64" ]; then
+        die "未対応のmacOSアーキテクチャです: $(uname -m)"
+      fi
+      printf 'darwin'
+      ;;
     Linux) printf 'linux' ;;
     *) die "未対応のOSです: $(uname -s)" ;;
   esac
@@ -22,9 +27,7 @@ detect_os() {
 brew_candidates() {
   case "$(detect_os)" in
     darwin)
-      printf '%s\n' \
-        /opt/homebrew/bin/brew \
-        /usr/local/bin/brew
+      printf '%s\n' /opt/homebrew/bin/brew
       ;;
     linux)
       printf '%s\n' /home/linuxbrew/.linuxbrew/bin/brew
@@ -71,6 +74,18 @@ ensure_brew() {
   eval "$("$brew_bin" shellenv)"
 }
 
+ensure_mise() {
+  local mise_bin="${HOME}/.local/bin/mise"
+
+  log "miseをmise.runから確認します"
+  curl -fsSL https://mise.run |
+    MISE_INSTALL_PATH="$mise_bin" MISE_INSTALL_SKIP_IF_EXISTS=1 sh
+
+  export PATH="${HOME}/.local/bin:${PATH}"
+  "$mise_bin" --version >/dev/null 2>&1 ||
+    die "miseのインストールを確認できませんでした: ${mise_bin}"
+}
+
 ensure_command() {
   local command_name=$1
   local formula=$2
@@ -105,9 +120,10 @@ ensure_github_auth() {
 }
 
 main() {
+  detect_os >/dev/null
+  ensure_mise
   ensure_brew
   ensure_command chezmoi chezmoi
-  ensure_command mise mise
   ensure_command gh gh
   ensure_github_auth
 
